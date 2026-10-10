@@ -19,11 +19,14 @@ export interface SignalBundle {
 
 type SignalFn = (symbol: string) => Promise<string>;
 
-// Lazy-load so a missing package in dev/CI does not crash the deterministic core.
+// Lazy-load so a missing package in dev/CI/serverless-build does not crash the core.
+// The specifier is held in a variable + webpackIgnore so the bundler does NOT try to
+// resolve it at build time (it is intentionally uninstalled, DEV-009). At runtime the
+// native import throws "module not found" → caught → PACKAGE_MISSING.
 async function loadSignal(): Promise<Record<string, SignalFn> | null> {
   try {
-    // @ts-expect-error — resolved only when @bitget-ai/bitget-signal is installed
-    const mod = await import('@bitget-ai/bitget-signal');
+    const pkg = '@bitget-ai/bitget-signal';
+    const mod = await import(/* webpackIgnore: true */ pkg);
     return (mod?.default ?? mod) as unknown as Record<string, SignalFn>;
   } catch {
     return null; // signals omitted; packet still valid

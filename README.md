@@ -88,7 +88,7 @@ Environment variables (`.env.example`):
 
 ## Live Demo
 
-Live: https://quorum-tkz4.onrender.com
+Live: https://quorum-ten-mauve.vercel.app
 
 ---
 

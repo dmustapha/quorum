@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Quorum logomark">
+  <title>Quorum — monospace Q with dissent tick</title>
+  <rect width="64" height="64" rx="4" fill="#0b0d10"/>
+  <!-- terminal-mono Q: hairline ring = the quorum/panel -->
+  <circle cx="30" cy="32" r="15" fill="none" stroke="#e7eaee" stroke-width="3"/>
+  <!-- the Q tail as a verdict gavel-stroke, lime = ruling on the record -->
+  <rect x="34" y="40" width="14" height="3.4" rx="1.7" fill="#b6ff3c" transform="rotate(38 34 40)"/>
+  <!-- preserved-dissent tick: the one mark that is never erased -->
+  <rect x="30" y="12" width="3" height="7" rx="1.5" fill="#b6ff3c"/>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 64" role="img" aria-label="Quorum">
+  <title>Quorum — combination mark</title>
+  <rect width="220" height="64" rx="4" fill="#0b0d10"/>
+  <!-- compact logomark: three ticks → one verdict bar -->
+  <rect x="14" y="22" width="13" height="2.6" rx="1.3" fill="#00e08a"/>
+  <rect x="14" y="30.7" width="13" height="2.6" rx="1.3" fill="#ff4d4d"/>
+  <rect x="14" y="39.4" width="13" height="2.6" rx="1.3" fill="#b6ff3c"/>
+  <path d="M27 23.3 L33 32 L27 40.7" fill="none" stroke="#5a616c" stroke-width="1.3"/>
+  <rect x="34" y="30.7" width="9" height="2.6" rx="1.3" fill="#b6ff3c"/>
+  <!-- wordmark: mono, tracks the "on the record" feel -->
+  <text x="58" y="40" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="24" font-weight="700" letter-spacing="1" fill="#e7eaee">QUORUM</text>
+</svg>

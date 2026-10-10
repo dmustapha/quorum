@@ -1,0 +1,102 @@
+[
+  {
+    "date": "2026-04-29",
+    "symbol": "RSPYUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  },
+  {
+    "date": "2026-04-30",
+    "symbol": "RAAPLUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  },
+  {
+    "date": "2026-06-17",
+    "symbol": "RSPYUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  },
+  {
+    "date": "2026-07-29",
+    "symbol": "RSPYUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  },
+  {
+    "date": "2026-07-30",
+    "symbol": "RAAPLUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  },
+  {
+    "date": "2026-09-11",
+    "symbol": "RAAPLUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  },
+  {
+    "date": "2026-09-11",
+    "symbol": "RNVDAUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  },
+  {
+    "date": "2026-09-11",
+    "symbol": "RTSLAUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  },
+  {
+    "date": "2026-09-11",
+    "symbol": "RCOINUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  },
+  {
+    "date": "2026-09-11",
+    "symbol": "RMSTRUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  },
+  {
+    "date": "2026-09-11",
+    "symbol": "RSPYUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  },
+  {
+    "date": "2026-09-11",
+    "symbol": "RGOOGLUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  },
+  {
+    "date": "2026-09-11",
+    "symbol": "RMETAUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  },
+  {
+    "date": "2026-09-16",
+    "symbol": "RAAPLUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  },
+  {
+    "date": "2026-09-16",
+    "symbol": "RNVDAUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  },
+  {
+    "date": "2026-09-16",
+    "symbol": "RTSLAUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  },
+  {
+    "date": "2026-09-16",
+    "symbol": "RCOINUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  },
+  {
+    "date": "2026-09-16",
+    "symbol": "RSPYUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  },
+  {
+    "date": "2026-09-16",
+    "symbol": "RGOOGLUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  },
+  {
+    "date": "2026-09-16",
+    "symbol": "RMETAUSDT",
+    "reason": "Error: LLM_ESCALATE: Error: LLM 400: {\"error\":{\"code\":\"content-blocked\",\"message\":\"content-blocked (request id: 20261009"
+  }
+]

@@ -1,0 +1,101 @@
+{
+  "config": {
+    "universe": [
+      "RAAPLUSDT",
+      "RNVDAUSDT",
+      "RTSLAUSDT",
+      "RCOINUSDT",
+      "RMSTRUSDT",
+      "RSPYUSDT",
+      "RGOOGLUSDT",
+      "RAMZNUSDT",
+      "RMETAUSDT"
+    ],
+    "from": "2026-03-10",
+    "to": "2026-10-08",
+    "oosCutoff": "2026-09-08",
+    "horizonDays": 3,
+    "convictionBar": 0.6
+  },
+  "panel": {
+    "is": {
+      "events": 9,
+      "trades": 0,
+      "hitRate": 0,
+      "avgPnlPct": 0,
+      "sharpeLike": 0,
+      "maxDrawdownPct": 0
+    },
+    "oos": {
+      "events": 3,
+      "trades": 2,
+      "hitRate": 0.5,
+      "avgPnlPct": 0.9952260597833695,
+      "sharpeLike": 0.5719635798848327,
+      "maxDrawdownPct": 0.7447904286506672
+    }
+  },
+  "ablation": {
+    "is": {
+      "events": 9,
+      "trades": 0,
+      "hitRate": 0,
+      "avgPnlPct": 0,
+      "sharpeLike": 0,
+      "maxDrawdownPct": 0
+    },
+    "oos": {
+      "events": 3,
+      "trades": 0,
+      "hitRate": 0,
+      "avgPnlPct": 0,
+      "sharpeLike": 0,
+      "maxDrawdownPct": 0
+    }
+  },
+  "equityCurve": {
+    "panel": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.0273524254821742,
+      1.0273524254821742,
+      1.0197008029486725
+    ],
+    "ablation": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "dates": [
+      "2026-03-11",
+      "2026-03-18",
+      "2026-04-22",
+      "2026-04-28",
+      "2026-04-29",
+      "2026-04-30",
+      "2026-05-27",
+      "2026-07-22",
+      "2026-08-26",
+      "2026-09-11",
+      "2026-09-16",
+      "2026-09-16"
+    ]
+  },
+  "verdict": "PANEL_BEATS_OOS"
+}

@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Build artifacts
+.next/
+*.tsbuildinfo
+next-env.d.ts
+
+# Secrets
+.env
+.env.local
+.env*.local
+
+# Runtime-only artifacts (NOT the committed seed demo)
+evidence/live-decisions.jsonl
+
+# OS
+.DS_Store
+
+# NOTE: .llm-cache/ is INTENTIONALLY tracked — the live gateway content-moderates
+# most uncached trading prompts, so the demo hero flow replays from this committed cache.

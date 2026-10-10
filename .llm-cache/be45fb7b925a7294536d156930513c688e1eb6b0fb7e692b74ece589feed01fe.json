@@ -1,0 +1,1 @@
+{"text":"{\"decision\":\"LONG\",\"conviction\":0.7}","usage":{"prompt_tokens":70,"completion_tokens":94,"total_tokens":164,"prompt_tokens_details":{"cached_tokens":0},"completion_tokens_details":{"reasoning_tokens":80},"prompt_cache_hit_tokens":0,"prompt_cache_miss_tokens":70}}

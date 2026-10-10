@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: quorum
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: BITGET_PAPER_TRADING
+        value: "true"
+      - key: BITGET_EXECUTOR_MODE
+        value: dry-run
+      - key: BITGET_KEY_TYPE
+        value: agent
+      # Secrets below are set in the Render dashboard, never committed:
+      # LLM_API_KEY, LLM_BASE_URL, LLM_CHEAP_MODEL, LLM_STRONG_MODEL, LLM_EXTRA_HEADERS,
+      # BITGET_API_KEY, BITGET_API_SECRET, BITGET_PASSPHRASE, NEXT_PUBLIC_BASE_URL

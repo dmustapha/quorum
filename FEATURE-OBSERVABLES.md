@@ -1,0 +1,13 @@
+# FEATURE-OBSERVABLES — Quorum
+
+| feature_id | feature | observable | test_command | sentinel_fail | verified_by |
+|-----------|---------|-----------|--------------|---------------|-------------|
+| F-001 | Judge TradeDecision is the sole order trigger | the only call site constructing an Agent Hub order is inside Executor.execute(verdict) | `grep -rn "placePaperOrder\|strategy_order" src/ \| grep -v "executor\|agenthub"` returns nothing | an order call exists outside Executor | stress_test.invariant_1 |
+| F-002 | Adversarial debate produces three opposing arguments | transcript.arguments has 3 entries with distinct roles bull/bear/risk | `curl -s -XPOST /api/run -d @ev.json \| jq '.transcript.arguments \| map(.role) \| unique \| length'` == 3 | arguments length < 3 or roles identical | stress_test.panel_smoke |
+| F-003 | Minority opinion always preserved | verdict.minorityOpinion is a non-empty string on every decision incl NO_TRADE | `curl -s /api/decisions \| jq '[.[] \| select(.verdict.minorityOpinion=="" )] \| length'` == 0 | any decision has empty minorityOpinion | stress_test.invariant_4 |
+| F-004 | Below-bar conviction yields NO_TRADE, no order | a verdict with conviction < bar has action NO_TRADE, sizePct 0, orderResult.status skipped | `pnpm test test/judge.test.ts test/executor.test.ts` passes | below-bar verdict places an order | test.judge+executor |
+| F-005 | Real paper order (no fabricated fill) | orderResult carries a raw Bitget Demo response (orderId) or explicit rejected; never synthesized | `curl -s /api/decisions \| jq '.[0].orderResult'` shows raw/orderId or status rejected | orderResult is a hardcoded success object | wire.agenthub_live |
+| F-006 | OOS strict cutoff (no leakage) | no candle with ts>=asOf appears in any EvidencePacket.priceContext | `pnpm test test/collector-cutoff.test.ts` passes | a packet uses a candle at/after the catalyst date | test.collector_cutoff |
+| F-007 | Backtest ≥60d/30d-OOS with ablation | backtest-result.json has both panel+ablation arms, IS+OOS, cutoff giving ≥30d OOS | `jq '.config.oosCutoff, (.panel.oos.events>0), (.ablation.oos.events>0)' evidence/backtest-result.json` | ablation arm missing or OOS window <30d | stress_test.backtest |
+| F-008 | Claims recompute from committed data | verify-claims exits 0; CLAIMS.md verdict matches recomputed OOS verdict | `pnpm tsx scripts/verify-claims.ts; echo $?` == 0 | CLAIM_MISMATCH (exit 1) or unbacked number | wire.verify_claims |
+| F-009 | Cold hero flow on deployed URL | GET / renders seeded decisions; /demo Run Panel streams debate->verdict->order with no local keys | `curl -s $URL/ \| grep -q "Minority opinion"` | landing empty / login wall / keys required | livetest.cold_stranger |

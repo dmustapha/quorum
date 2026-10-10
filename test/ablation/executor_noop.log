@@ -1,0 +1,9 @@
+# ABLATION — no-op the conviction-bar gate in src/core/executor.ts → suite MUST break (N-32a hollow-suite guard)
+# run: 2026-10-10T07:11:34Z
+ ❯ test/executor.test.ts (6 tests | 1 failed) 4ms
+   × Executor > skips a below-bar LONG (NO_VERDICT_NO_ORDER) without calling the hub 3ms
+ ❯ test/stress-edges.test.ts (8 tests | 1 failed) 13ms
+   × DH-3 · AI-agent failure modes > executor fail-closes a below-bar hand-crafted LONG (no fabricated fill) 4ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  2 failed (2)
+      Tests  2 failed | 12 passed (14)

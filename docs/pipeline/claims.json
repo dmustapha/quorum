@@ -1,0 +1,7 @@
+{"claims":[
+{"id":"C1","claim":"OOS verdict PANEL_BEATS_OOS; panel OOS avg 0.9952% vs ablation 0.0000%","verify":"npm run verify-claims","source":"evidence/backtest-events.jsonl","status":"recompute-verified","caveat":"directional only; 3 OOS events; 20/32 gateway-skipped; not significance-tested"},
+{"id":"C2","claim":"Judge TradeDecision is the sole order call-site","verify":"grep -rn placePaperOrder src/ (only executor.ts:28)","source":"src/core/executor.ts","status":"grep-proven"},
+{"id":"C3","claim":"Every verdict preserves a non-empty minority opinion","verify":"npm test test/judge.test.ts","source":"evidence/seed-decisions.jsonl","status":"test-proven"},
+{"id":"C4","claim":"Strict asOf cutoff: no candle ts>=event date in any packet","verify":"npm test test/collector-cutoff.test.ts","source":"src/pipeline/collector.ts","status":"test-proven"},
+{"id":"C5","claim":"4 real committed decisions (2 SHORT, 2 NO_TRADE) with evidence hashes","verify":"cat evidence/seed-decisions.jsonl","source":"evidence/seed-decisions.jsonl","status":"committed"}
+]}

@@ -1,0 +1,254 @@
+[
+  {
+    "symbol": "RTSLAUSDT",
+    "eventType": "earnings",
+    "date": "2026-01-28",
+    "description": "Tesla Q4 2025 earnings release (after close)"
+  },
+  {
+    "symbol": "RMETAUSDT",
+    "eventType": "earnings",
+    "date": "2026-01-28",
+    "description": "Meta Platforms Q4 2025 earnings release (after close)"
+  },
+  {
+    "symbol": "RSPYUSDT",
+    "eventType": "macro",
+    "date": "2026-01-28",
+    "description": "FOMC interest-rate decision (January meeting)"
+  },
+  {
+    "symbol": "RAAPLUSDT",
+    "eventType": "earnings",
+    "date": "2026-01-29",
+    "description": "Apple Q1 FY2026 earnings release (after close)"
+  },
+  {
+    "symbol": "RGOOGLUSDT",
+    "eventType": "earnings",
+    "date": "2026-02-03",
+    "description": "Alphabet Q4 2025 earnings release (after close)"
+  },
+  {
+    "symbol": "RMSTRUSDT",
+    "eventType": "earnings",
+    "date": "2026-02-04",
+    "description": "MicroStrategy (Strategy) Q4 2025 earnings release (after close)"
+  },
+  {
+    "symbol": "RAMZNUSDT",
+    "eventType": "earnings",
+    "date": "2026-02-05",
+    "description": "Amazon Q4 2025 earnings release (after close)"
+  },
+  {
+    "symbol": "RSPYUSDT",
+    "eventType": "macro",
+    "date": "2026-02-11",
+    "description": "US CPI release for January 2026 (BLS, 8:30 ET)"
+  },
+  {
+    "symbol": "RCOINUSDT",
+    "eventType": "earnings",
+    "date": "2026-02-12",
+    "description": "Coinbase Q4 2025 earnings release (after close)"
+  },
+  {
+    "symbol": "RNVDAUSDT",
+    "eventType": "earnings",
+    "date": "2026-02-25",
+    "description": "NVIDIA Q4 FY2026 earnings release (after close)"
+  },
+  {
+    "symbol": "RSPYUSDT",
+    "eventType": "macro",
+    "date": "2026-03-11",
+    "description": "US CPI release for February 2026 (BLS, 8:30 ET)"
+  },
+  {
+    "symbol": "RSPYUSDT",
+    "eventType": "macro",
+    "date": "2026-03-18",
+    "description": "FOMC interest-rate decision + SEP (March meeting)"
+  },
+  {
+    "symbol": "RTSLAUSDT",
+    "eventType": "earnings",
+    "date": "2026-04-22",
+    "description": "Tesla Q1 2026 earnings release (after close)"
+  },
+  {
+    "symbol": "RGOOGLUSDT",
+    "eventType": "earnings",
+    "date": "2026-04-28",
+    "description": "Alphabet Q1 2026 earnings release (after close)"
+  },
+  {
+    "symbol": "RMETAUSDT",
+    "eventType": "earnings",
+    "date": "2026-04-29",
+    "description": "Meta Platforms Q1 2026 earnings release (after close)"
+  },
+  {
+    "symbol": "RSPYUSDT",
+    "eventType": "macro",
+    "date": "2026-04-29",
+    "description": "FOMC interest-rate decision (April/May meeting)"
+  },
+  {
+    "symbol": "RAAPLUSDT",
+    "eventType": "earnings",
+    "date": "2026-04-30",
+    "description": "Apple Q2 FY2026 earnings release (after close)"
+  },
+  {
+    "symbol": "RAMZNUSDT",
+    "eventType": "earnings",
+    "date": "2026-04-30",
+    "description": "Amazon Q1 2026 earnings release (after close)"
+  },
+  {
+    "symbol": "RNVDAUSDT",
+    "eventType": "earnings",
+    "date": "2026-05-27",
+    "description": "NVIDIA Q1 FY2027 earnings release (after close)"
+  },
+  {
+    "symbol": "RSPYUSDT",
+    "eventType": "macro",
+    "date": "2026-06-17",
+    "description": "FOMC interest-rate decision + SEP (June meeting)"
+  },
+  {
+    "symbol": "RTSLAUSDT",
+    "eventType": "earnings",
+    "date": "2026-07-22",
+    "description": "Tesla Q2 2026 earnings release (after close)"
+  },
+  {
+    "symbol": "RSPYUSDT",
+    "eventType": "macro",
+    "date": "2026-07-29",
+    "description": "FOMC interest-rate decision (July meeting)"
+  },
+  {
+    "symbol": "RAAPLUSDT",
+    "eventType": "earnings",
+    "date": "2026-07-30",
+    "description": "Apple Q3 FY2026 earnings release (after close)"
+  },
+  {
+    "symbol": "RNVDAUSDT",
+    "eventType": "earnings",
+    "date": "2026-08-26",
+    "description": "NVIDIA Q2 FY2027 earnings release (after close)"
+  },
+  {
+    "symbol": "RAAPLUSDT",
+    "eventType": "macro",
+    "date": "2026-09-11",
+    "description": "US CPI release (August data) — scheduled macro print"
+  },
+  {
+    "symbol": "RNVDAUSDT",
+    "eventType": "macro",
+    "date": "2026-09-11",
+    "description": "US CPI release (August data) — scheduled macro print"
+  },
+  {
+    "symbol": "RTSLAUSDT",
+    "eventType": "macro",
+    "date": "2026-09-11",
+    "description": "US CPI release (August data) — scheduled macro print"
+  },
+  {
+    "symbol": "RCOINUSDT",
+    "eventType": "macro",
+    "date": "2026-09-11",
+    "description": "US CPI release (August data) — scheduled macro print"
+  },
+  {
+    "symbol": "RMSTRUSDT",
+    "eventType": "macro",
+    "date": "2026-09-11",
+    "description": "US CPI release (August data) — scheduled macro print"
+  },
+  {
+    "symbol": "RSPYUSDT",
+    "eventType": "macro",
+    "date": "2026-09-11",
+    "description": "US CPI release (August data) — scheduled macro print"
+  },
+  {
+    "symbol": "RGOOGLUSDT",
+    "eventType": "macro",
+    "date": "2026-09-11",
+    "description": "US CPI release (August data) — scheduled macro print"
+  },
+  {
+    "symbol": "RAMZNUSDT",
+    "eventType": "macro",
+    "date": "2026-09-11",
+    "description": "US CPI release (August data) — scheduled macro print"
+  },
+  {
+    "symbol": "RMETAUSDT",
+    "eventType": "macro",
+    "date": "2026-09-11",
+    "description": "US CPI release (August data) — scheduled macro print"
+  },
+  {
+    "symbol": "RAAPLUSDT",
+    "eventType": "macro",
+    "date": "2026-09-16",
+    "description": "FOMC interest-rate decision (September meeting) — scheduled"
+  },
+  {
+    "symbol": "RNVDAUSDT",
+    "eventType": "macro",
+    "date": "2026-09-16",
+    "description": "FOMC interest-rate decision (September meeting) — scheduled"
+  },
+  {
+    "symbol": "RTSLAUSDT",
+    "eventType": "macro",
+    "date": "2026-09-16",
+    "description": "FOMC interest-rate decision (September meeting) — scheduled"
+  },
+  {
+    "symbol": "RCOINUSDT",
+    "eventType": "macro",
+    "date": "2026-09-16",
+    "description": "FOMC interest-rate decision (September meeting) — scheduled"
+  },
+  {
+    "symbol": "RMSTRUSDT",
+    "eventType": "macro",
+    "date": "2026-09-16",
+    "description": "FOMC interest-rate decision (September meeting) — scheduled"
+  },
+  {
+    "symbol": "RSPYUSDT",
+    "eventType": "macro",
+    "date": "2026-09-16",
+    "description": "FOMC interest-rate decision (September meeting) — scheduled"
+  },
+  {
+    "symbol": "RGOOGLUSDT",
+    "eventType": "macro",
+    "date": "2026-09-16",
+    "description": "FOMC interest-rate decision (September meeting) — scheduled"
+  },
+  {
+    "symbol": "RAMZNUSDT",
+    "eventType": "macro",
+    "date": "2026-09-16",
+    "description": "FOMC interest-rate decision (September meeting) — scheduled"
+  },
+  {
+    "symbol": "RMETAUSDT",
+    "eventType": "macro",
+    "date": "2026-09-16",
+    "description": "FOMC interest-rate decision (September meeting) — scheduled"
+  }
+]

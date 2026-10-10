@@ -1,0 +1,24 @@
+name: keep-warm
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping live deployment
+        env:
+          URL: ${{ vars.KEEP_WARM_URL }}
+        run: |
+          if [ -z "$URL" ]; then
+            echo "KEEP_WARM_URL repo variable not set; skipping."
+            exit 0
+          fi
+          code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 60 "$URL")
+          echo "Pinged $URL -> HTTP $code"

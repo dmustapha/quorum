@@ -8,6 +8,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import type { CatalystEvent, DecisionRecord } from '../../core/types';
+import { DecisionCard } from '../_components/decision-card';
 
 // Curated demo-ready catalysts: these are already cached (the seeded/backtested events), so
 // "Run Panel" replays deterministically from the disk cache — instant, reliable, no gateway
@@ -45,14 +46,19 @@ export default function Demo() {
   };
 
   return (
-    <main className="wrap">
-      <nav className="nav" style={{ marginTop: 0, marginBottom: 'var(--s-5)' }}>
-        <Link href="/">← Home</Link>
-        <Link href="/app">App</Link>
-        <Link href="/proof">Proof</Link>
-      </nav>
+    <div className="page">
+      <div className="page-head">
+        <div>
+          <p className="page-kicker">live · pick a catalyst and run the panel</p>
+          <h1>Run the panel</h1>
+          <p className="page-lede">
+            Replay a real catalyst through the Bull / Bear / Risk debate and the Judge. Verdicts
+            are deterministic from the committed candle cache — nothing is fabricated.
+          </p>
+        </div>
+      </div>
 
-      <h2>Pick a catalyst</h2>
+      <div className="sec-h"><h2>Pick a catalyst</h2></div>
       {events.map((ev, i) => (
         <button
           key={`${ev.symbol}-${ev.date}-${i}`}
@@ -64,7 +70,12 @@ export default function Demo() {
         </button>
       ))}
 
-      {loading && <p className="dim" style={{ marginTop: 'var(--s-5)' }}>Panel debating…</p>}
+      {loading && (
+        <p className="dim" style={{ marginTop: 'var(--s-5)', fontFamily: 'var(--mono)', fontSize: 13 }}>
+          <span className="status-dot" style={{ display: 'inline-block', marginRight: 8, verticalAlign: 'middle' }} />
+          Panel debating…
+        </p>
+      )}
 
       {error && (
         <div className="empty" style={{ marginTop: 'var(--s-5)', borderColor: 'var(--bad)' }}>
@@ -79,30 +90,31 @@ export default function Demo() {
       )}
 
       {record && (
-        <section style={{ marginTop: 'var(--s-5)' }}>
-          {record.transcript.arguments.map((a, i) => (
-            <div key={i} className={`arg arg--${a.role}`}>
-              <b>{a.role.toUpperCase()}</b>{' '}
-              <span className="dim">(confidence {a.confidence})</span>
-              <p style={{ margin: 'var(--s-1) 0 0' }}>{a.thesis}</p>
-            </div>
-          ))}
-
-          <div className="card" style={{ marginTop: 'var(--s-4)' }}>
-            <h3 style={{ marginTop: 0 }}>
-              JUDGE: {record.verdict.decision.action}
-              <span className="dim" style={{ fontWeight: 400 }}>
-                {' '}· size {record.verdict.decision.sizePct}% · stop {record.verdict.decision.stopPct}% ·
-                conviction {record.verdict.decision.conviction}
-              </span>
-            </h3>
-            <p>{record.verdict.rationale}</p>
-            <p className="dissent"><b>Minority opinion:</b> {record.verdict.minorityOpinion}</p>
-            <p style={{ marginBottom: 0 }}><b>Paper order:</b></p>
-            <pre>{JSON.stringify(record.orderResult, null, 2)}</pre>
+        <section style={{ marginTop: 'var(--s-6)' }}>
+          <div className="sec-h"><h2>Adversarial counsel</h2></div>
+          <div className="counsel">
+            {(['bull', 'bear', 'risk'] as const).map((role) => {
+              const a = record.transcript.arguments.find((x) => x.role === role);
+              if (!a) return null;
+              return (
+                <div key={role} className={`cpanel ${role}`}>
+                  <div className="cpanel-h">
+                    <span className="cpanel-role">{role}</span>
+                    <div className="cpanel-conf">
+                      <span className="cpanel-conf-v">{a.confidence.toFixed(2)}</span>
+                      <span className="cpanel-conf-t"><span className="cpanel-conf-f" style={{ width: `${Math.round(a.confidence * 100)}%` }} /></span>
+                    </div>
+                  </div>
+                  <p className="cpanel-thesis">{a.thesis}</p>
+                </div>
+              );
+            })}
           </div>
+
+          <div className="sec-h"><h2>Judge ruling</h2></div>
+          <DecisionCard r={record} />
         </section>
       )}
-    </main>
+    </div>
   );
 }

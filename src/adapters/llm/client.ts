@@ -68,8 +68,12 @@ export class LLMClient {
           usage?: unknown;
         };
         const out: CompleteResult = { text: j.choices?.[0]?.message?.content ?? '', usage: j.usage };
-        await mkdir(CACHE_DIR, { recursive: true });
-        await writeFile(file, JSON.stringify(out));
+        // Best-effort cache write — a read-only serverless FS (Vercel) must not turn a
+        // successful live response into an escalation. The committed cache powers the demo.
+        try {
+          await mkdir(CACHE_DIR, { recursive: true });
+          await writeFile(file, JSON.stringify(out));
+        } catch { /* non-durable FS — response still returned */ }
         return out;
       } catch (e) {
         lastErr = e;

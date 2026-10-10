@@ -5,6 +5,7 @@
 
 import { appendFile, readFile, mkdir } from 'node:fs/promises';
 import { createHash, randomUUID } from 'node:crypto';
+import os from 'node:os';
 import path from 'node:path';
 import type {
   DebateTranscript,
@@ -15,8 +16,14 @@ import type {
 } from './types';
 
 const EVIDENCE_DIR = path.join(process.cwd(), 'evidence');
-const LIVE_LOG = path.join(EVIDENCE_DIR, 'live-decisions.jsonl');
 const SEED_LOG = path.join(EVIDENCE_DIR, 'seed-decisions.jsonl');
+// Live log is written at runtime. On a read-only serverless FS (Vercel: only /tmp is
+// writable) the app dir cannot be appended to, so route live writes to the OS temp dir
+// there. Seed decisions (committed) carry the demo either way, so live persistence is
+// best-effort — a write failure must never 502 the hero flow.
+const SERVERLESS_RO = !!process.env.VERCEL || !!process.env.AWS_LAMBDA_FUNCTION_NAME;
+const LIVE_DIR = SERVERLESS_RO ? os.tmpdir() : EVIDENCE_DIR;
+const LIVE_LOG = path.join(LIVE_DIR, 'live-decisions.jsonl');
 
 /** evidenceHash = sha256(JSON.stringify(packet)) — re-hashing a stored packet must reproduce it. */
 export function hashPacket(p: EvidencePacket): string {
@@ -39,8 +46,14 @@ export class Audit {
       orderResult,
       evidenceHash: hashPacket(packet),
     };
-    await mkdir(EVIDENCE_DIR, { recursive: true });
-    await appendFile(LIVE_LOG, JSON.stringify(record) + '\n', 'utf8');
+    // Best-effort durable append. A read-only/again-ephemeral FS must not break the
+    // decision: the verdict + dissent are already computed and returned to the caller.
+    try {
+      await mkdir(LIVE_DIR, { recursive: true });
+      await appendFile(LIVE_LOG, JSON.stringify(record) + '\n', 'utf8');
+    } catch (err) {
+      console.warn(`[audit] live append skipped (non-durable FS): ${String(err)}`);
+    }
     return record;
   }
 

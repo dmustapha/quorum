@@ -201,3 +201,13 @@ evidence/                # committed backtest rows, seed decisions, proofs
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+## Core Invariants
+
+The safety guarantees that make Quorum's decisions auditable — each is enforced in code and emits an exact rejection code when violated:
+
+- **Single order call-site** — only `Executor.execute(verdict)` can place an order; it takes a Judge `TradeDecision` and nothing else, so removing the LLMs means nothing trades. A bypass attempt yields `NO_VERDICT_NO_ORDER`.
+- **Preserved dissent** — every verdict must carry a non-empty `minorityOpinion` (the strongest losing argument), enforced by a zod `.min(1)` schema even on `NO_TRADE`. An empty dissent after retries yields `MINORITY_MISSING`.
+- **Out-of-sample cutoff** — no candle at or after the catalyst date may enter an evidence packet; the collector refuses look-ahead data with `OOS_LEAK_GUARD`.
+- **Recompute-or-reject** — `verify-claims.ts` independently recomputes the OOS verdict from committed event rows; a stored number that doesn't reproduce raises `CLAIM_MISMATCH`.
+- **Honest execution** — rTokens are spot-only, so a `SHORT` is rendered as an honest `advisory` (`SPOT_LONG_ONLY`), never a fabricated fill; a genuinely rejected order surfaces `ORDER_REJECTED`.

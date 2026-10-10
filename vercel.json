@@ -1,18 +1,6 @@
 {
-  "services": {
-    "quorum": {
-      "root": ".",
-      "framework": "nextjs",
-      "buildCommand": "npm ci && npm run build"
-    }
-  },
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": {
-        "type": "service",
-        "service": "quorum"
-      }
-    }
-  ]
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "npm install --include=dev",
+  "buildCommand": "npm run build",
+  "framework": "nextjs"
 }

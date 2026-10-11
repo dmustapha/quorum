@@ -58,13 +58,13 @@ export function EquityChart({ result }: { result: BacktestResult }) {
       {/* gridlines + y labels */}
       {gridVals.map((v, i) => (
         <g key={i}>
-          <line x1={X0} y1={yFor(v)} x2={X1} y2={yFor(v)} stroke="var(--ink-06)" strokeWidth={1} />
+          <line x1={X0} y1={yFor(v)} x2={X1} y2={yFor(v)} stroke="var(--ink-10)" strokeWidth={1} />
           <text
             x={X0 - 8}
             y={yFor(v) + 3}
             textAnchor="end"
             className="mono"
-            fill="var(--ink-faint)"
+            fill="var(--ink-dim)"
             fontSize="10"
           >
             {v.toFixed(3)}
@@ -81,7 +81,7 @@ export function EquityChart({ result }: { result: BacktestResult }) {
             y1={Y0}
             x2={split}
             y2={Y1}
-            stroke="var(--border-strong)"
+            stroke="var(--ink-20)"
             strokeWidth={1}
             strokeDasharray="4 4"
           />
@@ -89,7 +89,7 @@ export function EquityChart({ result }: { result: BacktestResult }) {
       )}
 
       {/* section labels */}
-      <text x={X0} y={Y0 - 10} className="mono" fill="var(--ink-faint)" fontSize="11" letterSpacing=".1em">
+      <text x={X0} y={Y0 - 10} className="mono" fill="var(--ink-dim)" fontSize="11" letterSpacing=".1em">
         IN-SAMPLE
       </text>
       {split !== null && (
@@ -97,7 +97,7 @@ export function EquityChart({ result }: { result: BacktestResult }) {
           x={split + 10}
           y={Y0 - 10}
           className="mono"
-          fill="var(--ink-faint)"
+          fill="var(--ink-dim)"
           fontSize="11"
           letterSpacing=".1em"
         >

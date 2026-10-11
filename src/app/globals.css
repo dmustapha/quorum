@@ -12,8 +12,8 @@
   --s3: oklch(0.278 0.018 274);
   /* text — parchment ladder */
   --ink:       oklch(0.936 0.013 86);
-  --ink-dim:   oklch(0.715 0.012 80);
-  --ink-faint: oklch(0.545 0.012 76);
+  --ink-dim:   oklch(0.780 0.012 80);
+  --ink-faint: oklch(0.680 0.012 76);
   /* accent — Lac (the Judge / ruling / brand). RESERVED to authority. */
   --accent:    oklch(0.585 0.170 25);
   --accent-hi: oklch(0.690 0.180 28);
@@ -116,7 +116,7 @@ a { color: var(--accent-hi); text-decoration: none; }
 .eyebrow { font-family: var(--f-mono); font-size: var(--t-eyebrow); text-transform: uppercase; letter-spacing: 0.24em; color: var(--accent); font-weight: 500; }
 .mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums lining-nums; }
 .dim { color: var(--ink-dim); } .faint { color: var(--ink-faint); }
-.recess { color: var(--ink-faint); }
+.recess { color: var(--ink-dim); }
 .lede { font-size: 1.125rem; color: var(--ink-dim); line-height: 1.6; max-width: 56ch; }
 
 /* ---- layout ---- */

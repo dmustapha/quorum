@@ -113,7 +113,7 @@ a { color: var(--accent-hi); text-decoration: none; }
 
 /* ---- type helpers ---- */
 .display { font-family: var(--f-display); font-size: var(--t-display); font-weight: 900; line-height: 0.98; letter-spacing: -0.03em; }
-.eyebrow { font-family: var(--f-mono); font-size: var(--t-eyebrow); text-transform: uppercase; letter-spacing: 0.24em; color: var(--accent); font-weight: 500; }
+.eyebrow { font-family: var(--f-mono); font-size: var(--t-eyebrow); text-transform: uppercase; letter-spacing: 0.24em; color: var(--accent-hi); font-weight: 500; }
 .mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums lining-nums; }
 .dim { color: var(--ink-dim); } .faint { color: var(--ink-faint); }
 .recess { color: var(--ink-dim); }
@@ -224,7 +224,7 @@ section { position: relative; }
 
 /* ---- tables / docket ---- */
 .docket { width: 100%; border-collapse: collapse; font-size: var(--t-small); }
-.docket th { text-align: left; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); font-weight: 500; padding: 10px 14px; border-bottom: 1px solid var(--border); }
+.docket th { text-align: left; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-dim); font-weight: 500; padding: 10px 14px; border-bottom: 1px solid var(--border); }
 .docket td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
 .docket tbody tr { transition: background var(--t-fast); cursor: pointer; }
 .docket tbody tr:hover { background: var(--hover-fill); }

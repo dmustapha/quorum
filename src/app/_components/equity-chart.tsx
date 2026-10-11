@@ -1,12 +1,14 @@
 // File: src/app/_components/equity-chart.tsx
-// Hand-built SVG equity curve with real linear scales, y gridlines + ticks, x date ticks, an
-// area fill under the Panel line, a dashed OOS-cutoff marker, and point markers at each event.
-// Two series: Panel (lime) vs Ablation (dim). Reads the committed evidence arrays verbatim.
+// Equity curve in the reference's visual style (faint gridlines, OOS split shade + dashed divider,
+// IN-SAMPLE / OUT-OF-SAMPLE labels, Panel = --accent, Single-LLM = --azure, endpoint dots) but
+// plotting the REAL committed equityCurve arrays (panel[], ablation[], dates[]) with real linear
+// scales and the real OOS cutoff index. Pure SVG from props — server-safe, no fabrication.
 import type { BacktestResult } from '../../core/types';
 
-const W = 920;
-const H = 340;
-const PAD = { top: 16, right: 20, bottom: 36, left: 46 };
+const X0 = 40;
+const X1 = 920;
+const Y0 = 30;
+const Y1 = 300;
 
 export function EquityChart({ result }: { result: BacktestResult }) {
   const { panel, ablation, dates } = result.equityCurve;
@@ -14,83 +16,116 @@ export function EquityChart({ result }: { result: BacktestResult }) {
   if (n < 2) return null;
 
   const all = [...panel, ...ablation];
-  const rawMin = Math.min(...all);
-  const rawMax = Math.max(...all);
-  // pad the domain so the flat baseline isn't glued to an edge
-  const span = rawMax - rawMin || 0.02;
-  const yMin = rawMin - span * 0.25;
-  const yMax = rawMax + span * 0.25;
+  const rawLo = Math.min(...all);
+  const rawHi = Math.max(...all);
+  const span = rawHi - rawLo || 0.02;
+  const lo = rawLo - span * 0.4;
+  const hi = rawHi + span * 0.4;
 
-  const plotW = W - PAD.left - PAD.right;
-  const plotH = H - PAD.top - PAD.bottom;
-  const x = (i: number) => PAD.left + (i / (n - 1)) * plotW;
-  const y = (v: number) => PAD.top + (1 - (v - yMin) / (yMax - yMin)) * plotH;
+  const xFor = (i: number) => X0 + (i / (n - 1)) * (X1 - X0);
+  const yFor = (v: number) => Y1 - ((v - lo) / (hi - lo)) * (Y1 - Y0);
 
-  const line = (arr: number[]) => arr.map((v, i) => `${x(i)},${y(v)}`).join(' ');
-  const panelPts = line(panel);
-  const ablPts = line(ablation);
-  const areaPts = `${PAD.left},${PAD.top + plotH} ${panelPts} ${PAD.left + plotW},${PAD.top + plotH}`;
-
-  // y gridlines / ticks
-  const ticks = 4;
-  const yTicks = Array.from({ length: ticks + 1 }, (_, i) => yMin + ((yMax - yMin) * i) / ticks);
-
-  // OOS cutoff — first index whose date is >= cutoff
+  // OOS split index — first date >= the committed cutoff.
   const oosIdx = dates.findIndex((dt) => dt >= result.config.oosCutoff);
-  const oosX = oosIdx > 0 ? x(oosIdx) : null;
+  const split = oosIdx > 0 ? xFor(oosIdx) : null;
+
+  // smooth-ish path through the real points
+  const path = (arr: number[]) => {
+    const pts = arr.map((v, i) => [xFor(i), yFor(v)] as [number, number]);
+    let d = `M ${pts[0][0]} ${pts[0][1]}`;
+    for (let i = 1; i < pts.length; i++) {
+      const [px, py] = pts[i - 1];
+      const [cx, cy] = pts[i];
+      const mid = (px + cx) / 2;
+      d += ` C ${mid} ${py}, ${mid} ${cy}, ${cx} ${cy}`;
+    }
+    return d;
+  };
+
+  const ticks = 5;
+  const gridVals = Array.from({ length: ticks }, (_, i) => lo + ((hi - lo) * (i + 0.5)) / ticks);
+
+  const panelEnd: [number, number] = [xFor(n - 1), yFor(panel[n - 1])];
+  const ablEnd: [number, number] = [xFor(n - 1), yFor(ablation[n - 1])];
 
   return (
-    <div className="chart-wrap">
-      <div className="chart-legend">
-        <span className="leg"><span className="leg-swatch panel" /> Panel · {panel.at(-1)?.toFixed(4)}</span>
-        <span className="leg"><span className="leg-swatch ablation" /> Ablation · {ablation.at(-1)?.toFixed(4)}</span>
-        <span className="leg" style={{ marginLeft: 'auto', color: 'var(--lime)' }}>{result.verdict}</span>
-      </div>
-      <svg className="chart-svg" viewBox={`0 0 ${W} ${H}`} role="img"
-        aria-label={`Equity curve: Panel ends at ${panel.at(-1)?.toFixed(4)}, ablation flat at ${ablation.at(-1)?.toFixed(4)}; panel beats out-of-sample.`}>
-        <defs>
-          <linearGradient id="panelArea" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="rgba(182,255,60,0.18)" />
-            <stop offset="100%" stopColor="rgba(182,255,60,0)" />
-          </linearGradient>
-        </defs>
-
-        <g className="chart-grid">
-          {yTicks.map((t, i) => (
-            <line key={i} x1={PAD.left} x2={W - PAD.right} y1={y(t)} y2={y(t)} />
-          ))}
+    <svg
+      viewBox="0 0 960 340"
+      style={{ width: '100%', height: 'auto', marginTop: 'var(--s-4)' }}
+      role="img"
+      aria-label={`Equity curves: panel ends at ${panel[n - 1].toFixed(4)}, single-LLM flat at ${ablation[n - 1].toFixed(4)} across in-sample and out-of-sample.`}
+    >
+      {/* gridlines + y labels */}
+      {gridVals.map((v, i) => (
+        <g key={i}>
+          <line x1={X0} y1={yFor(v)} x2={X1} y2={yFor(v)} stroke="var(--ink-06)" strokeWidth={1} />
+          <text
+            x={X0 - 8}
+            y={yFor(v) + 3}
+            textAnchor="end"
+            className="mono"
+            fill="var(--ink-faint)"
+            fontSize="10"
+          >
+            {v.toFixed(3)}
+          </text>
         </g>
-        <g className="chart-axis">
-          {yTicks.map((t, i) => (
-            <text key={i} x={PAD.left - 8} y={y(t) + 3} textAnchor="end">{t.toFixed(3)}</text>
-          ))}
-          {dates.map((dt, i) =>
-            i % Math.ceil(n / 6) === 0 || i === n - 1 ? (
-              <text key={i} x={x(i)} y={H - PAD.bottom + 16} textAnchor="middle">{dt.slice(5)}</text>
-            ) : null,
-          )}
-        </g>
+      ))}
 
-        {oosX !== null && (
-          <g className="chart-oos">
-            <line x1={oosX} x2={oosX} y1={PAD.top} y2={PAD.top + plotH} />
-            <text x={oosX + 4} y={PAD.top + 10} textAnchor="start">OOS CUTOFF</text>
-          </g>
-        )}
+      {/* OOS split shade + dashed divider */}
+      {split !== null && (
+        <>
+          <rect x={split} y={Y0} width={X1 - split} height={Y1 - Y0} fill="var(--ink-04)" />
+          <line
+            x1={split}
+            y1={Y0}
+            x2={split}
+            y2={Y1}
+            stroke="var(--border-strong)"
+            strokeWidth={1}
+            strokeDasharray="4 4"
+          />
+        </>
+      )}
 
-        <polygon points={areaPts} fill="url(#panelArea)" />
-        <polyline className="chart-abl-line" points={ablPts} />
-        <polyline className="chart-panel-line" points={panelPts} />
+      {/* section labels */}
+      <text x={X0} y={Y0 - 10} className="mono" fill="var(--ink-faint)" fontSize="11" letterSpacing=".1em">
+        IN-SAMPLE
+      </text>
+      {split !== null && (
+        <text
+          x={split + 10}
+          y={Y0 - 10}
+          className="mono"
+          fill="var(--ink-faint)"
+          fontSize="11"
+          letterSpacing=".1em"
+        >
+          OUT-OF-SAMPLE
+        </text>
+      )}
 
-        {panel.map((v, i) => (
-          <circle key={i} className="chart-mark" cx={x(i)} cy={y(v)} r={2.6} />
-        ))}
-      </svg>
-      <div className="cav">
-        Directional-signal evaluation, not executed returns. Strict OOS cutoff at{' '}
-        {result.config.oosCutoff} · {result.config.horizonDays}d horizon · recomputed from
-        committed evidence · not significance-tested.
-      </div>
-    </div>
+      {/* the two real curves */}
+      <path
+        d={path(ablation)}
+        fill="none"
+        stroke="var(--azure)"
+        strokeWidth={2.4}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d={path(panel)}
+        fill="none"
+        stroke="var(--accent)"
+        strokeWidth={2.4}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      {/* endpoint dots */}
+      <circle cx={ablEnd[0]} cy={ablEnd[1]} r={3.5} fill="var(--azure)" />
+      <circle cx={panelEnd[0]} cy={panelEnd[1]} r={3.5} fill="var(--accent)" />
+    </svg>
   );
 }

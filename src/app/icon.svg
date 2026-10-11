@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Quorum logomark">
   <title>Quorum — three voices, one verdict</title>
-  <rect width="64" height="64" rx="4" fill="#0b0d10"/>
-  <!-- three counsel ticks (bull / bear / risk) converging left→right into one verdict bar -->
-  <rect x="12" y="18" width="18" height="3" rx="1.5" fill="#00e08a"/>
-  <rect x="12" y="30.5" width="18" height="3" rx="1.5" fill="#ff4d4d"/>
-  <rect x="12" y="43" width="18" height="3" rx="1.5" fill="#b6ff3c"/>
-  <!-- convergence seam -->
-  <path d="M30 19.5 L38 32 L30 44.5" fill="none" stroke="#5a616c" stroke-width="1.5"/>
-  <!-- the single verdict bar (lime = on the record) -->
-  <rect x="40" y="30.5" width="12" height="3" rx="1.5" fill="#b6ff3c"/>
+  <rect width="64" height="64" rx="8" fill="#211629"/>
+  <!-- conviction ring arc (the Judge / accent) -->
+  <path d="M32 10 A22 22 0 1 1 14 42" fill="none" stroke="#c0394a" stroke-width="4" stroke-linecap="round"/>
+  <!-- three advocate arcs converging on the core: bull (gold) / bear (azure) / risk (argent) -->
+  <path d="M46 20 Q36 30 32 32" fill="none" stroke="#d9a441" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M18 44 Q28 36 32 32" fill="none" stroke="#5b9bd1" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M44 48 Q36 38 32 32" fill="none" stroke="#9aa0ab" stroke-width="2.6" stroke-linecap="round"/>
+  <!-- the ruling core -->
+  <circle cx="32" cy="32" r="6" fill="#c0394a"/>
 </svg>

@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "produced_by": "design-forge (re-run, heraldic re-skin formalization)",
+  "source": "src/app/globals.css",
+  "design_system": "../DESIGN_SYSTEM.md",
+  "exit_code": 0,
+  "verdict": "PASS",
+  "violations": { "critical": 0, "major": 0, "minor": 0, "info": 0 },
+  "notes": "5 MAJOR hover-without-@media(hover:hover) findings fixed in place (nav-links, btn-primary, btn-ghost, card, docket row) — desktop look unchanged. Re-audit clean.",
+  "ts": "2026-10-11T15:12:00Z"
+}

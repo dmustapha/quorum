@@ -1,37 +1,57 @@
 {
   "name": "Quorum",
-  "tagline": "Argue before you trade — adversarial Bull/Bear/Risk debate, a Judge ruling on the record, dissent never erased.",
-  "colorMode": "dark-only",
-  "brandColor": "#b6ff3c",
-  "accent": "#b6ff3c",
-  "ink": ["#0b0d10", "#16181d", "#1c1f26", "#262a31", "#767d89"],
+  "tagline": "Argue before you trade — adversarial Bull/Bear/Risk debate, a Judge rules on the record, dissent never erased.",
+  "colorMode": "both",
+  "brandColor": "#cd4845",
+  "accent": "#cd4845",
+  "ink": ["#0d0f15", "#15171f", "#1c1e27", "#252831", "#a7a29b"],
+  "oklch": {
+    "bgBase": "oklch(0.168 0.014 274)",
+    "s1": "oklch(0.205 0.016 274)",
+    "s2": "oklch(0.238 0.017 274)",
+    "s3": "oklch(0.278 0.018 274)",
+    "ink": "oklch(0.936 0.013 86)",
+    "inkDim": "oklch(0.715 0.012 80)",
+    "inkFaint": "oklch(0.545 0.012 76)",
+    "accent": "oklch(0.585 0.170 25)",
+    "accentHi": "oklch(0.690 0.180 28)",
+    "azure": "oklch(0.705 0.105 242)",
+    "vert": "oklch(0.740 0.120 158)",
+    "or": "oklch(0.780 0.130 75)"
+  },
   "semantic": {
-    "success": "#00e08a",
-    "warning": "#b6ff3c",
-    "danger": "#ff4d4d"
+    "judge": "#cd4845",
+    "bull": "#e8aa4e",
+    "bear": "#60a8dc",
+    "risk": "#a7a29b",
+    "filled": "#61c28e",
+    "success": "#61c28e",
+    "warning": "#e8aa4e",
+    "danger": "#cd4845"
   },
   "fonts": {
-    "display": "Geist",
-    "body": "Geist",
+    "display": "Fraunces",
+    "body": "Inter",
     "mono": "JetBrains Mono"
   },
-  "radii": { "sm": 3, "md": 4, "lg": 4, "xl": 4 },
-  "shadowPhilosophy": "soft-elevation",
-  "signatureElement": "The lime-topped preserved-minority-opinion block inside the ruling-on-tape card — the losing argument is first-class, never a footnote.",
+  "radii": { "sm": 6, "md": 10, "lg": 16, "xl": 22, "full": 999 },
+  "shadowPhilosophy": "pure-glow",
+  "signatureElement": "The Verdict Seal — a radial debate instrument: three advocate arcs (gold Bull, azure Bear, argent Risk) converge on a crimson ruling core, a conviction ring sweeps to the panel's conviction against a visible threshold notch, and an azure dashed thread keeps the dissent on the record.",
   "logoPath": "public/logo.svg",
   "signatureObject": {
-    "name": "ruling-on-tape — a verdict card wearing a terminal window's dot-header, with a lime hairline and a lime-topped dissent panel welded below the ruling",
-    "thesis": "Quorum's entire thesis is that the losing argument is preserved on the record; the signature makes dissent architecturally first-class (its own lime-topped panel inside the hero) rather than a discardable footnote, and the terminal dot-header asserts 'courtroom inside a trading terminal' at a glance.",
+    "name": "the Verdict Seal / radial debate — heraldic 'gules & azure on ink': three advocate arcs orbiting a crimson ruling core inside a swept conviction ring, with the losing side preserved as an azure dashed dissent thread",
+    "thesis": "Quorum's thesis is that a trade is a ruling, not a vibe — three AI advocates argue, a Judge rules on the record, and the losing argument is kept. The seal encodes that literally: role-as-hue (crimson Lac = Judge/authority, gold = Bull, azure = Bear/dissent, argent = Risk), the conviction ring is the court's confidence swept against a visible threshold bar, and the azure dashed thread is dissent made geometrically permanent rather than erased. Crimson is RESERVED to the ruling — never spent as chrome.",
     "perSurface": {
-      "landing": "ruling-on-tape hero card with the lime minority panel visible on first load above the seeded decision feed — the cold-stranger money shot",
-      "console": "dense mono decision feed (/app) and OOS proof panel (/backtest): hairline-bordered metric tables, tabular-nums, equity curve where lime=Panel beats dim=ablation — reading-room density, not a marketing hero"
+      "landing": "the hero Verdict Seal animates its verb-loop (arcs draw in -> conviction ring fills -> ruling core stamps -> hold -> loop) over the graded 'docket chamber' field (warm crimson chamber-light left -> ink -> cool azure right) — the radial debate as the cold-stranger money shot",
+      "console": "the seal shrinks to a dense dockets-and-tables reading room (/app decision feed, /backtest OOS panel): hairline-bordered metric tables, tabular-nums mono, verdict chips carrying hue+shape (triangle Bull, left-triangle Bear, diamond Risk, crimson stamp = ruling) — reading-room density, not a marketing hero"
     }
   },
   "invariantPhrase": "Dissent is never erased.",
   "statusLegend": [
-    { "color": "#00e08a", "token": "FILLED / BUY / LONG", "meaning": "a real paper order filled on Bitget Agent Hub, or a long/go ruling" },
-    { "color": "#ff4d4d", "token": "REJECTED / SELL / SHORT", "meaning": "order rejected by the venue, or a bearish/short ruling or loss" },
-    { "color": "#b6ff3c", "token": "ADVISORY (SPOT_LONG_ONLY) / DISSENT / PANEL_BEATS_OOS", "meaning": "honest short signal with no fabricated fill; the preserved minority opinion; the panel beating the single-LLM ablation out-of-sample" },
-    { "color": "#8a929e", "token": "NO_TRADE / skipped", "meaning": "below-conviction-bar ruling — size 0, no order placed" }
+    { "color": "#cd4845", "token": "RULING / TRADE / REJECT (authority)", "meaning": "the Judge's ruling on the record — the Lac crimson accent is RESERVED to authority (the ruling, the conviction ring, the primary CTA), never used as chrome" },
+    { "color": "#60a8dc", "token": "DISSENT / BEAR / counsel", "meaning": "the preserved minority opinion and the Bear advocate — azure dissent is kept as a dashed thread, architecturally first-class" },
+    { "color": "#e8aa4e", "token": "BULL / advisory / pending-near-bar", "meaning": "the Bull advocate and advisory/pending states, including honest SPOT_LONG_ONLY short signals that place no fabricated fill" },
+    { "color": "#a7a29b", "token": "RISK / NO_TRADE (argent held)", "meaning": "the Risk advocate and below-conviction-bar NO_TRADE rulings — size 0, no order placed" },
+    { "color": "#61c28e", "token": "FILLED / settled / affirmed", "meaning": "vert — a real paper order filled on Bitget Agent Hub, or a settled/affirmed state" }
   ]
 }

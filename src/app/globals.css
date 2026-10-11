@@ -131,7 +131,7 @@ section { position: relative; }
 .brand { display: flex; align-items: center; gap: var(--s-3); font-family: var(--f-display); font-weight: 600; font-size: 1.05rem; letter-spacing: -0.01em; }
 .nav-links { display: flex; gap: 2px; margin-left: auto; }
 .nav-links a { color: var(--ink-dim); font-size: var(--t-small); padding: 6px 12px; border-radius: var(--r-full); transition: color var(--t-base), background var(--t-base); }
-.nav-links a:hover { color: var(--ink); background: var(--hover-fill); }
+@media (hover: hover) { .nav-links a:hover { color: var(--ink); background: var(--hover-fill); } }
 .nav-links a.active { color: var(--ink); background: var(--ink-10); }
 
 /* ---- buttons ---- */
@@ -139,14 +139,14 @@ section { position: relative; }
   padding: 9px 18px; border-radius: var(--r-full); border: 1px solid transparent; cursor: pointer; transition: transform var(--t-fast), background var(--t-base), border-color var(--t-base); }
 .btn:active { transform: translateY(1px); }
 .btn-primary { background: var(--accent); color: var(--accent-ink); }
-.btn-primary:hover { background: var(--accent-hi); }
+@media (hover: hover) { .btn-primary:hover { background: var(--accent-hi); } }
 .btn-ghost { background: transparent; border-color: var(--border-strong); color: var(--ink); }
-.btn-ghost:hover { background: var(--hover-fill); border-color: var(--ink-20); }
+@media (hover: hover) { .btn-ghost:hover { background: var(--hover-fill); border-color: var(--ink-20); } }
 .btn:focus-visible, a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 
 /* ---- cards / surfaces (bg-step + hairline, no neutral drops) ---- */
 .card { background: var(--s1); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--s-5); transition: border-color var(--t-base), background var(--t-base), transform var(--t-base); }
-.card:hover { border-color: var(--border-strong); background: var(--s2); }
+@media (hover: hover) { .card:hover { border-color: var(--border-strong); background: var(--s2); } }
 .chip { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-mono); font-size: 12px; padding: 3px 10px; border-radius: var(--r-full); border: 1px solid var(--border-strong); color: var(--ink-dim); justify-self: start; }
 
 /* ---- verdict / role encoding (hue + shape via ::before glyph) ---- */
@@ -227,7 +227,7 @@ section { position: relative; }
 .docket th { text-align: left; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-dim); font-weight: 500; padding: 10px 14px; border-bottom: 1px solid var(--border); }
 .docket td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
 .docket tbody tr { transition: background var(--t-fast); cursor: pointer; }
-.docket tbody tr:hover { background: var(--hover-fill); }
+@media (hover: hover) { .docket tbody tr:hover { background: var(--hover-fill); } }
 .num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
 
 @media (prefers-reduced-motion: reduce) {

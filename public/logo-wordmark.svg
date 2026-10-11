@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 64" role="img" aria-label="Quorum">
-  <title>Quorum — combination mark</title>
-  <rect width="220" height="64" rx="4" fill="#0b0d10"/>
-  <!-- compact logomark: three ticks → one verdict bar -->
-  <rect x="14" y="22" width="13" height="2.6" rx="1.3" fill="#00e08a"/>
-  <rect x="14" y="30.7" width="13" height="2.6" rx="1.3" fill="#ff4d4d"/>
-  <rect x="14" y="39.4" width="13" height="2.6" rx="1.3" fill="#b6ff3c"/>
-  <path d="M27 23.3 L33 32 L27 40.7" fill="none" stroke="#5a616c" stroke-width="1.3"/>
-  <rect x="34" y="30.7" width="9" height="2.6" rx="1.3" fill="#b6ff3c"/>
-  <!-- wordmark: mono, tracks the "on the record" feel -->
-  <text x="58" y="40" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="24" font-weight="700" letter-spacing="1" fill="#e7eaee">QUORUM</text>
+  <title>Quorum — wordmark (Verdict Seal + Fraunces)</title>
+  <rect width="220" height="64" rx="12" fill="#0d0f15"/>
+  <g transform="translate(10 10) scale(0.68)">
+    <path d="M32 10 A22 22 0 1 1 13.3 43" fill="none" stroke="#cd4845" stroke-width="4.6" stroke-linecap="round"/>
+    <path d="M43 20 Q36.5 27 32 32" fill="none" stroke="#e8aa4e" stroke-width="3" stroke-linecap="round"/>
+    <path d="M18.5 40 Q26 36 32 32" fill="none" stroke="#60a8dc" stroke-width="3" stroke-linecap="round"/>
+    <path d="M42 45 Q36 38 32 32" fill="none" stroke="#a7a29b" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="32" cy="32" r="6.8" fill="#cd4845"/>
+  </g>
+  <text x="62" y="41" font-family="Fraunces, Georgia, serif" font-size="27" font-weight="600" letter-spacing="-0.3" fill="#eceae7">Quorum</text>
 </svg>

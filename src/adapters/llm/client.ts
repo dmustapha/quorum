@@ -16,7 +16,7 @@ import path from 'node:path';
 const CACHE_DIR = path.join(process.cwd(), '.llm-cache');
 
 export interface LLMMessage { role: 'system' | 'user' | 'assistant'; content: string; }
-export interface CompleteOpts { model?: string; json?: boolean; temperature?: number; noCache?: boolean; }
+export interface CompleteOpts { model?: string; json?: boolean; temperature?: number; noCache?: boolean; signal?: AbortSignal; }
 export interface CompleteResult { text: string; usage?: unknown; }
 
 export class LLMClient {
@@ -30,13 +30,14 @@ export class LLMClient {
     try { return JSON.parse(process.env.LLM_EXTRA_HEADERS ?? '{}'); } catch { return {}; }
   })();
 
-  private cacheKey(messages: LLMMessage[], opts: CompleteOpts): string {
+  private cacheKey(messages: LLMMessage[], opts: Omit<CompleteOpts, 'signal'>): string {
     return createHash('sha256').update(JSON.stringify({ messages, opts })).digest('hex');
   }
 
   async complete(messages: LLMMessage[], opts: CompleteOpts = {}): Promise<CompleteResult> {
     const model = opts.model ?? this.cheapModel;
-    const keyed: CompleteOpts = { ...opts, model };
+    const { signal, ...keyableOpts } = opts;
+    const keyed: Omit<CompleteOpts, 'signal'> = { ...keyableOpts, model };
     const hash = this.cacheKey(messages, keyed);
     const file = path.join(CACHE_DIR, `${hash}.json`);
 
@@ -57,6 +58,7 @@ export class LLMClient {
             Authorization: `Bearer ${this.key}`,
             ...this.extraHeaders,
           },
+          signal,
           body: JSON.stringify({
             model,
             messages,
@@ -80,6 +82,8 @@ export class LLMClient {
         }
         return out;
       } catch (e) {
+        // AbortError must propagate immediately — retrying a cancelled call hangs forever.
+        if (e instanceof Error && e.name === 'AbortError') throw e;
         lastErr = e;
       }
     }

@@ -42,6 +42,16 @@ describe('loadLeakSafeRows', () => {
     expect(bar).toBe(0.65);
   });
 
+  it('returns dropped=0 when skipped file parses to non-array (denominator guard)', async () => {
+    const { dropped, rows, verdict, bar } = await loadLeakSafeRows(
+      makeFakeReader({ skipped: '{}' }),
+    );
+    expect(dropped).toBe(0);
+    expect(rows.length).toBe(2);
+    expect(verdict).toBe('PANEL_BEATS_OOS');
+    expect(bar).toBe(0.65);
+  });
+
   it('returns honest-empty shape when reader throws', async () => {
     const throwingReader = async (_path: string): Promise<string> => {
       throw new Error('file not found');

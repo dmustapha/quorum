@@ -29,8 +29,8 @@ export async function loadLeakSafeRows(
       .map((line) => JSON.parse(line) as EventRow)
       .filter((row) => row.isOos === true);
 
-    const skipped: unknown[] = JSON.parse(skippedText);
-    const dropped = skipped.length;
+    const parsed: unknown = JSON.parse(skippedText);
+    const dropped = Array.isArray(parsed) ? parsed.length : 0;
 
     const result = JSON.parse(resultText) as { verdict: string; config: { convictionBar: number } };
     const verdict = result.verdict;

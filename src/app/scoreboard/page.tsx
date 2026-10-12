@@ -107,17 +107,16 @@ export default function ScoreboardPage() {
         {/* Panel vs ablation */}
         <div className="stat-row" style={{ marginTop: 'var(--s-3)', borderTop: '1px solid var(--border)', paddingTop: 'var(--s-3)' }}>
           <span className="stat-row-label">Panel vs single-model</span>
-          <span className="stat-row-value">
-            {pva.ablationN === 0 ? (
-              <span className="stat-subthreshold">no ablation trades yet</span>
-            ) : (
-              <>
-                <StatRow label="Panel hit rate" stat={panelHitStat} />
-                <StatRow label="Single-model hit rate" stat={ablHitStat} />
-              </>
-            )}
-          </span>
+          {pva.ablationN === 0 && (
+            <span className="stat-row-value stat-subthreshold">no ablation trades yet</span>
+          )}
         </div>
+        {pva.ablationN > 0 && (
+          <>
+            <StatRow label="Panel hit rate" stat={panelHitStat} />
+            <StatRow label="Single-model hit rate" stat={ablHitStat} />
+          </>
+        )}
 
         <p className="dim" style={{ fontSize: 'var(--t-small)', marginTop: 'var(--s-4)' }}>
           {sb.totalScored} total scored · {sb.totalDropped} excluded by gateway filter

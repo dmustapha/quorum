@@ -12,9 +12,11 @@ describe('curvePoints', () => {
       { lo: 0.1, hi: 0.2, hitRate: 0.5, n: 10 },
     ];
     const pts = curvePoints(buckets, W, H);
+    // only the non-null bucket should produce a point
     expect(pts.length).toBe(1);
-    // the null bucket is not present — no point at y=0 for it
-    expect(pts[0].y).not.toBe(H); // y=H would be hitRate=0
+    // the surviving point must correspond to the non-null bucket (lo=0.1, hi=0.2)
+    // center = (0.1+0.2)/2 = 0.15; x = 0.15 * W
+    expect(pts[0].x).toBeCloseTo(0.15 * W, 5);
   });
 
   it('(b) all points fall within [0,w]×[0,h]', () => {

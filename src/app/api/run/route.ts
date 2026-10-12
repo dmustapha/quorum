@@ -4,9 +4,10 @@ import { sseFrame } from './sse';
 import type { CatalystEvent } from '../../../core/types';
 
 export const runtime = 'nodejs';
-// maxDuration must be >= the 45s panel deadline + margin AND <= the deploy platform's hard cap.
-// Vercel Hobby caps at 60s, Pro allows up to 300s (spec §14 deploy re-provision). 60 is safe on both.
-export const maxDuration = 60;
+// maxDuration must be >= the 90s panel deadline + margin AND <= the deploy platform's hard cap.
+// Vercel Hobby caps at 60s, Pro allows up to 300s (spec §14 deploy re-provision). Deploy gate §14
+// handles this; local/demo unaffected. Raised from 60 because 0G judge latency false-fails at 45s.
+export const maxDuration = 120;
 
 export async function POST(req: NextRequest) {
   if (!process.env.LLM_API_KEY) {

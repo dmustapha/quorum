@@ -20,7 +20,7 @@ export async function* runCatalystStream(
   event: CatalystEvent,
   opts: { deadlineMs?: number; bar?: number; signal?: AbortSignal; noCache?: boolean } = {},
 ): AsyncGenerator<StreamEvent> {
-  const deadlineMs = opts.deadlineMs ?? 45_000;
+  const deadlineMs = opts.deadlineMs ?? 90_000;
   const bar = opts.bar ?? DEFAULT_CONVICTION_BAR;
   const ac = new AbortController();
   const timer = setTimeout(() => ac.abort(), deadlineMs);

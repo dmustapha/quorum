@@ -20,3 +20,6 @@ evidence/live-decisions.jsonl
 # NOTE: .llm-cache/ is INTENTIONALLY tracked — the live gateway content-moderates
 # most uncached trading prompts, so the demo hero flow replays from this committed cache.
 .vercel
+
+# Phase 0 spike raw measurement (the finding is summarized in docs/, not this blob)
+scripts/spike/empty-rate-result.json

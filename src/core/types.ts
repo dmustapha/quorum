@@ -107,3 +107,13 @@ export interface BacktestResult {
 export const MAX_SIZE_PCT = 10;        // position cap (% of notional)
 export const DEFAULT_CONVICTION_BAR = 0.6;   // pre-registered
 export const DEFAULT_HORIZON_DAYS = 3;       // pre-registered forward-return window
+
+export type StreamEvent =
+  | { type: 'evidence_ready'; packet: EvidencePacket }
+  | { type: 'bull_done'; arg: Argument }
+  | { type: 'bear_done'; arg: Argument }
+  | { type: 'risk_done'; arg: Argument }
+  | { type: 'judge_ruling'; verdict: JudgeVerdict }
+  | { type: 'order_placed'; orderResult: OrderResult }
+  | { type: 'done'; record: DecisionRecord }
+  | { type: 'error'; stage: string; message: string };

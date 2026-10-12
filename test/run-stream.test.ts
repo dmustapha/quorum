@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { runCatalystStream } from '../src/pipeline/run-stream';
+import { Audit } from '../src/core/audit';
 import type { CatalystEvent, StreamEvent } from '../src/core/types';
 
 // RAMZNUSDT has committed candles in data/candles-cache (offline Collector). noCache:true on the
@@ -13,9 +14,19 @@ async function collect(gen: AsyncGenerator<StreamEvent>): Promise<StreamEvent[]>
 }
 
 describe('runCatalystStream', () => {
-  afterEach(() => vi.unstubAllGlobals());
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    vi.restoreAllMocks();
+  });
 
   it('emits evidence → three analysts → judge → order → done, in that phase order', async () => {
+    // Stub Audit.append to prevent writes to the shared evidence/live-decisions.jsonl file,
+    // which races with stress-edges.test.ts's exact line-count assertion.
+    vi.spyOn(Audit.prototype, 'append').mockImplementation(async (packet, transcript, verdict, orderResult) => ({
+      id: 'test-live', ts: '2026-01-01T00:00:00Z', packet, transcript, verdict, orderResult,
+      evidenceHash: 'test-hash',
+    }) as any);
+
     // analysts (strong model, json) return a valid Argument; judge returns a valid verdict.
     const arg = JSON.stringify({ thesis: 't', evidenceRefs: [], confidence: 0.6 });
     const verdict = JSON.stringify({ action: 'NO_TRADE', sizePct: 0, stopPct: 0, conviction: 0.4, rationale: 'r', minorityOpinion: 'bear: x' });

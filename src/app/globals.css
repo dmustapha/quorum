@@ -171,6 +171,16 @@ section { position: relative; }
 .js [data-reveal] { opacity: 0; transform: translateY(26px); transition: opacity var(--t-slow) var(--ease-out-cubic), transform var(--t-slow) var(--ease-out-cubic); will-change: opacity, transform; }
 [data-reveal].in { opacity: 1; transform: none; }
 
+/* ---- streaming debate stages ---- */
+/* .stage: revealed card (animate in from below) */
+.stage { animation: stageReveal var(--t-mid) var(--ease-out-cubic) both; }
+@keyframes stageReveal { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+/* .stage-pending: dimmed skeleton — analyst not yet arrived */
+.stage-pending { opacity: 0.52; border-color: var(--border) !important; background: var(--s1) !important; }
+.stage-pending * { color: var(--ink-faint) !important; }
+/* .live-badge: advisory signal marker — uses --or (advisory/Bull), NOT --accent (authority) */
+.live-badge { display: inline-flex; align-items: center; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.06em; padding: 2px 10px; border-radius: var(--r-full); border: 1px solid var(--or-24); background: var(--or-14); color: var(--or); }
+
 /* ---- the Verdict Seal ---- */
 .seal { display: block; }
 .seal-arc { fill: none; stroke-width: 2.4; stroke-linecap: round; }

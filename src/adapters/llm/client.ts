@@ -16,7 +16,7 @@ import path from 'node:path';
 const CACHE_DIR = path.join(process.cwd(), '.llm-cache');
 
 export interface LLMMessage { role: 'system' | 'user' | 'assistant'; content: string; }
-export interface CompleteOpts { model?: string; json?: boolean; temperature?: number; }
+export interface CompleteOpts { model?: string; json?: boolean; temperature?: number; noCache?: boolean; }
 export interface CompleteResult { text: string; usage?: unknown; }
 
 export class LLMClient {
@@ -40,10 +40,12 @@ export class LLMClient {
     const hash = this.cacheKey(messages, keyed);
     const file = path.join(CACHE_DIR, `${hash}.json`);
 
-    // Cache hit → deterministic replay, zero network.
-    try {
-      return JSON.parse(await readFile(file, 'utf8')) as CompleteResult;
-    } catch { /* miss → network */ }
+    // Cache hit → deterministic replay, zero network. Skipped entirely when noCache.
+    if (!opts.noCache) {
+      try {
+        return JSON.parse(await readFile(file, 'utf8')) as CompleteResult;
+      } catch { /* miss → network */ }
+    }
 
     let lastErr: unknown;
     for (let attempt = 0; attempt < 2; attempt++) {
@@ -70,10 +72,12 @@ export class LLMClient {
         const out: CompleteResult = { text: j.choices?.[0]?.message?.content ?? '', usage: j.usage };
         // Best-effort cache write — a read-only serverless FS (Vercel) must not turn a
         // successful live response into an escalation. The committed cache powers the demo.
-        try {
-          await mkdir(CACHE_DIR, { recursive: true });
-          await writeFile(file, JSON.stringify(out));
-        } catch { /* non-durable FS — response still returned */ }
+        if (!opts.noCache) {
+          try {
+            await mkdir(CACHE_DIR, { recursive: true });
+            await writeFile(file, JSON.stringify(out));
+          } catch { /* non-durable FS — response still returned */ }
+        }
         return out;
       } catch (e) {
         lastErr = e;

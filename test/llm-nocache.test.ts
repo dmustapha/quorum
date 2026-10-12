@@ -1,5 +1,4 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { readFile } from 'node:fs/promises';
 import { LLMClient } from '../src/adapters/llm/client';
 
 describe('LLMClient noCache', () => {

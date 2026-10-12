@@ -30,18 +30,19 @@ export function BrowseGrid({ records }: { records: DecisionRecord[] }) {
     setPinned(loadPinned());
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem(COMPARE_KEY, JSON.stringify(pinned));
+  }, [pinned]);
+
   function togglePin(id: string) {
     setPinned((prev) => {
-      let next: string[];
       if (prev.includes(id)) {
-        next = prev.filter((x) => x !== id);
+        return prev.filter((x) => x !== id);
       } else if (prev.length < 2) {
-        next = [...prev, id];
+        return [...prev, id];
       } else {
-        next = prev; // already 2, ignore
+        return prev; // already 2, ignore
       }
-      localStorage.setItem(COMPARE_KEY, JSON.stringify(next));
-      return next;
     });
   }
 

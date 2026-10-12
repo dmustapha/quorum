@@ -80,6 +80,12 @@ describe('filterSort', () => {
     expect(() => filterSort([], { action: 'LONG', sortBy: 'date', dir: 'asc' })).not.toThrow();
   });
 
+  it('token filter is case-insensitive substring match', () => {
+    const result = filterSort([r1, r2, r3], { token: 'btc', sortBy: 'date', dir: 'asc' });
+    expect(result.length).toBe(1);
+    expect(result[0].packet.symbol).toBe('BTCUSDT');
+  });
+
   it('does not mutate the input array', () => {
     const input = [r1, r2, r3];
     const before = [...input];

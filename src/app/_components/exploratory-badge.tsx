@@ -2,7 +2,11 @@
 // ExploratoryBadge — shown when the user moves off the pre-registered conviction bar / horizon.
 // Uses --ink-dim + muted border, NOT --accent, to signal "this is not the tested claim".
 
+import { DEFAULT_CONVICTION_BAR, DEFAULT_HORIZON_DAYS } from '../../core/types';
+
 export function ExploratoryBadge() {
+  const barPct = Math.round(DEFAULT_CONVICTION_BAR * 100);
+  const horizonDays = DEFAULT_HORIZON_DAYS;
   return (
     <div
       style={{
@@ -36,8 +40,8 @@ export function ExploratoryBadge() {
           lineHeight: 1.45,
         }}
       >
-        you&apos;ve moved off the pre-registered setting (bar 0.6 / 3 days); numbers here are
-        exploratory, not the tested claim.
+        you&apos;ve moved off the pre-registered setting (bar {barPct} / {horizonDays} days);
+        numbers here are exploratory, not the tested claim.
       </span>
     </div>
   );

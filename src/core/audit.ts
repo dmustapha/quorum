@@ -36,6 +36,7 @@ export class Audit {
     transcript: DebateTranscript,
     verdict: JudgeVerdict,
     orderResult: OrderResult,
+    signalsSuppressed = false,
   ): Promise<DecisionRecord> {
     const record: DecisionRecord = {
       id: randomUUID(),
@@ -45,6 +46,7 @@ export class Audit {
       verdict,
       orderResult,
       evidenceHash: hashPacket(packet),
+      signalsSuppressed,
     };
     // Best-effort durable append. A read-only/again-ephemeral FS must not break the
     // decision: the verdict + dissent are already computed and returned to the caller.

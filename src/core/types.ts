@@ -84,6 +84,7 @@ export interface DecisionRecord {
   orderResult: OrderResult;
   evidenceHash: string;  // sha256(packet)
   forwardReturns?: Record<string, number | null>;  // NEW: realized fwd return % by horizon-days (Task 7)
+  signalsSuppressed: boolean; // true only for leak-safe OOS study rows; false for live/seed runs
 }
 
 export interface ArmMetrics {

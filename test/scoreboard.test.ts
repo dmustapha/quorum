@@ -28,6 +28,8 @@ describe('buildScoreboard', () => {
     const s = buildScoreboard([row({ panelPnl: 2, panelTraded: true, ablTraded: false })], { bar: 0.6, dropped: 0 });
     expect(s.panelVsAblation.panelHitRate).toBeGreaterThanOrEqual(0);
     expect(s.panelVsAblation.ablationHitRate).toBe(0); // 0 ablation trades
+    expect(s.panelVsAblation.ablationN).toBe(0);
+    expect(s.panelVsAblation.panelN).toBe(1);
   });
 });
 

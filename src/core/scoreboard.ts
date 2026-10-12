@@ -9,7 +9,7 @@ export interface Scoreboard {
   actionMix: { long: number; short: number; noTrade: number; n: number };
   hitRate: Stat;
   caseAgainstRight: Stat;
-  panelVsAblation: { panelHitRate: number; ablationHitRate: number; panelAvgPnl: number; ablationAvgPnl: number; n: number };
+  panelVsAblation: { panelHitRate: number; ablationHitRate: number; panelAvgPnl: number; ablationAvgPnl: number; panelN: number; ablationN: number; n: number };
   calibration: CalibrationBucket[];
   totalScored: number;
   totalDropped: number;
@@ -44,6 +44,7 @@ export function buildScoreboard(rows: EventRow[], opts: { bar: number; dropped: 
     panelVsAblation: {
       panelHitRate: panelHR.value, ablationHitRate: ablHR.value,
       panelAvgPnl: avg(tradedPanel.map((r) => r.panelPnl)), ablationAvgPnl: avg(rows.filter((r) => r.ablTraded).map((r) => r.ablPnl)),
+      panelN: panelHR.n, ablationN: ablHR.n,
       n: rows.length,
     },
     calibration: calibrationBuckets(rows, 10),

@@ -463,6 +463,78 @@ section { position: relative; }
   .compare-cols { grid-template-columns: 1fr; }
 }
 
+/* ---- scoreboard + calibration curve (§5.3) ---- */
+.scoreboard-page { }
+
+.scoreboard-verdict {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  padding: var(--s-4) var(--s-5);
+  background: var(--acc-10);
+  border: 1px solid var(--acc-40);
+  border-radius: var(--r-md);
+  margin-bottom: var(--s-6);
+}
+.scoreboard-verdict-string {
+  font-family: var(--f-mono);
+  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+  color: var(--accent-hi);
+  font-weight: 600;
+}
+
+.scoreboard-header { margin-bottom: var(--s-6); }
+.scoreboard-header h1 { font-size: var(--t-h1); margin: var(--s-2) 0 var(--s-3); }
+
+.scoreboard-curve { padding: var(--s-5); }
+
+/* stat-row: the atomic unit — label + value + inline caveat, inseparable */
+.stat-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--border);
+}
+.stat-row:last-child { border-bottom: none; }
+.stat-row-label {
+  font-family: var(--f-mono);
+  font-size: var(--t-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-faint);
+}
+.stat-row-value {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--f-mono);
+  font-size: 1.35rem;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--ink);
+}
+/* greyed when below significance threshold — the default for n < 30 */
+.stat-subthreshold {
+  color: var(--ink-dim) !important;
+  opacity: 0.72;
+}
+.stat-row-caveat {
+  font-size: var(--t-small);
+  font-family: var(--f-body);
+  color: var(--ink-dim);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+/* loud variant — "the case against right" — caveat at full emphasis */
+.stat-row-caveat--loud {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* calibration curve SVG — same conventions as equity-chart */
+.scoreboard-curve svg { display: block; }
+
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
   [data-reveal] { opacity: 1 !important; transform: none !important; }

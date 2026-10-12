@@ -40,10 +40,14 @@ export async function* runCatalystStream(
     // 2. Analysts in PARALLEL (latency), surfaced as each COMPLETES via a shrinking race map.
     //    Reuses the exported, cancellable argue() — same prompts/parse as Panel.debate (DRY).
     const pending = new Map<Role, Promise<{ role: Role; arg: Argument }>>(
-      (['bull', 'bear', 'risk'] as Role[]).map((role) => [
-        role,
-        argue(llm, role, packet, llmOpts).then((arg) => ({ role, arg })),
-      ]),
+      (['bull', 'bear', 'risk'] as Role[]).map((role) => {
+        const p = argue(llm, role, packet, llmOpts).then((arg) => ({ role, arg }));
+        // Attach no-op catch so unhandled-rejection warnings don't fire when this promise is orphaned
+        // (race picks another analyst that rejects, leaving this one un-awaited). The map still holds `p`,
+        // so Promise.race() still sees rejections and honest-fail path works.
+        p.catch(() => {});
+        return [role, p];
+      }),
     );
     const settled: Argument[] = [];
     while (pending.size > 0) {

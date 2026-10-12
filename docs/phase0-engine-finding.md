@@ -22,7 +22,9 @@ Pooled empty-rate: 0.00. (Errors excluded from the rate denominator; see §Revie
 
 **GO:** deepseek-v4-pro clears the bar at n=1 retry per role under the §3.1 per-run deadline. 
 
-All 80 sampled completions across the four-role panel (bull, bear, risk, judge) produced valid, schema-compliant JSON verdicts. Zero empty responses. Zero transport errors. The measured empty-rate of 0.00 far exceeds the threshold required to gate Phase 1. A single retry per role is sufficient to achieve ≥95% whole-panel success; the measured live run on the 0G Compute Router confirms the engine is reliable for production panel execution.
+All 80 sampled completions across the four-role panel (bull, bear, risk, judge) produced valid, schema-compliant JSON verdicts. Zero empty responses. Zero transport errors. The measured empty-rate of 0.00 meets the Phase-1 gate at the maximum possible margin (0 empties in 80 live samples). A single retry per role is sufficient to achieve ≥95% whole-panel success; the measured live run on the 0G Compute Router confirms the engine is reliable for production panel execution.
+
+**Note:** the retry wrapper (noCache + retry path) is retained in Phase 1; a single spike snapshot at p=0 is not a cross-time guarantee of reliability under future load/time.
 
 ## Hands to Phase 1
 - retry-on-empty attempts = 1 (per role, sequential, under the hard per-run deadline).

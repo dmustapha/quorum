@@ -452,6 +452,17 @@ section { position: relative; }
   border-radius: var(--r-lg);
 }
 
+/* Compare page — two-column side-by-side layout */
+.compare-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-6);
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .compare-cols { grid-template-columns: 1fr; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
   [data-reveal] { opacity: 1 !important; transform: none !important; }

@@ -117,6 +117,11 @@ export default async function Console() {
                 <h1 style={{ fontSize: 'var(--t-h2)', margin: 'var(--s-2) 0 0' }}>
                   Every verdict the panel has entered.
                 </h1>
+                <div style={{ marginTop: 'var(--s-3)' }}>
+                  <Link href="/browse" className="btn btn-ghost" style={{ fontSize: 'var(--t-small)' }}>
+                    Browse all decisions →
+                  </Link>
+                </div>
               </div>
               <span className="faint mono" style={{ fontSize: 12 }}>
                 pre-registered bar <strong style={{ color: 'var(--ink-dim)' }}>60</strong> · dissent

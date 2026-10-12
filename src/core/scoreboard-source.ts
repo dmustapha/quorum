@@ -1,6 +1,6 @@
 // Server-only: reads leak-safe backtest evidence files and returns OOS-only rows.
 // Inject `readFile` for testability; production callers pass `node:fs/promises` readFile.
-import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 import type { EventRow } from './backtest';
 
 export interface LeakSafePayload {
@@ -10,8 +10,9 @@ export interface LeakSafePayload {
   bar: number;
 }
 
-const evidencePath = (file: string): string =>
-  fileURLToPath(new URL(`../../evidence/${file}`, import.meta.url));
+// Resolve against process.cwd() (same pattern as audit.ts) — Vercel traces evidence/**
+// to the function's working dir, where import.meta.url-relative paths do not reliably point.
+const evidencePath = (file: string): string => path.join(process.cwd(), 'evidence', file);
 
 export async function loadLeakSafeRows(
   readFile: (path: string) => Promise<string>,

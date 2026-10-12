@@ -302,6 +302,156 @@ section { position: relative; }
   .slider::-moz-range-thumb { transition: none !important; }
 }
 
+/* ---- browse / filter grid (§5.2) ---- */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--s-3) var(--s-4);
+  padding: var(--s-4) var(--s-5);
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  margin-bottom: var(--s-5);
+}
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+}
+.filter-label {
+  font-family: var(--f-mono);
+  font-size: var(--t-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
+}
+.filter-bar select,
+.filter-bar input[type="text"] {
+  background: var(--s2);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: var(--t-small);
+  padding: 5px 10px;
+  min-width: 120px;
+  appearance: none;
+  transition: border-color var(--t-base);
+}
+.filter-bar select:focus,
+.filter-bar input[type="text"]:focus {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-color: var(--accent-hi);
+}
+.filter-bar input[type="range"] {
+  width: 120px;
+  accent-color: var(--accent-hi);
+}
+.compare-btn {
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 16px;
+  border-radius: var(--r-full);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: var(--t-small);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: none;
+  cursor: pointer;
+  transition: background var(--t-base);
+  text-decoration: none;
+}
+@media (hover: hover) { .compare-btn:hover { background: var(--accent-hi); } }
+
+.browse-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.browse-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  transition: background var(--t-base), border-color var(--t-base);
+}
+.browse-row--pinned {
+  border-color: var(--accent-hi);
+  background: var(--acc-10);
+}
+@media (hover: hover) { .browse-row:hover { background: var(--s2); border-color: var(--border-strong); } }
+.browse-row-link {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  flex: 1;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: var(--t-small);
+}
+.browse-id {
+  font-family: var(--f-mono);
+  font-size: var(--t-eyebrow);
+  color: var(--ink-faint);
+  min-width: 72px;
+}
+.browse-sym {
+  font-family: var(--f-mono);
+  font-weight: 600;
+  color: var(--ink);
+  min-width: 80px;
+}
+.browse-event {
+  color: var(--ink-dim);
+  min-width: 72px;
+  font-size: var(--t-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.browse-date {
+  font-family: var(--f-mono);
+  color: var(--ink-dim);
+  min-width: 100px;
+}
+.browse-conv {
+  font-family: var(--f-mono);
+  color: var(--ink-dim);
+  margin-left: auto;
+  min-width: 48px;
+  text-align: right;
+}
+.pin-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--ink-dim);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 4px 8px;
+  transition: color var(--t-fast), border-color var(--t-fast), background var(--t-fast);
+  flex-shrink: 0;
+}
+.pin-btn--active { color: var(--accent-hi); border-color: var(--accent-hi); background: var(--acc-10); }
+.pin-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+@media (hover: hover) { .pin-btn:not(:disabled):hover { border-color: var(--accent-hi); color: var(--accent-hi); } }
+.browse-empty {
+  padding: var(--s-7) var(--s-5);
+  text-align: center;
+  color: var(--ink-faint);
+  font-size: var(--t-body);
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
   [data-reveal] { opacity: 1 !important; transform: none !important; }

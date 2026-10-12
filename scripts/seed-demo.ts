@@ -13,7 +13,8 @@ import { Judge } from '../src/core/judge';
 import { Executor } from '../src/core/executor';
 import { AgentHub } from '../src/adapters/bitget/agenthub';
 import { Audit } from '../src/core/audit';
-import { gate } from '../src/core/backtest';
+import { gate, forwardReturn } from '../src/core/backtest';
+import { MarketClient } from '../src/adapters/bitget/market';
 import { LLMClient } from '../src/adapters/llm/client';
 import { DEFAULT_CONVICTION_BAR } from '../src/core/types';
 import type { CatalystEvent, DecisionRecord, JudgeVerdict } from '../src/core/types';
@@ -36,6 +37,7 @@ async function main() {
   const executor = new Executor(new AgentHub());
   const audit = new Audit();
 
+  const market = new MarketClient();
   const records: DecisionRecord[] = [];
   for (const ev of PICKS) {
     let packet;
@@ -55,8 +57,12 @@ async function main() {
       convictionBar: DEFAULT_CONVICTION_BAR,
     };
     const orderResult = await executor.execute(gated); // dry-run → honest rejected/skipped
-    records.push(await audit.append(packet, transcript, gated, orderResult));
-    console.log(`${ev.symbol} ${ev.date}: ${gated.decision.action} conv=${gated.decision.conviction} order=${orderResult.status}`);
+    const rec = await audit.append(packet, transcript, gated, orderResult);
+    const fr: Record<string, number | null> = {};
+    for (const h of [1, 3, 5, 10]) fr[String(h)] = await forwardReturn(market, ev.symbol, ev.date, h);
+    rec.forwardReturns = fr;
+    records.push(rec);
+    console.log(`${ev.symbol} ${ev.date}: ${gated.decision.action} conv=${gated.decision.conviction} order=${orderResult.status} fwd1=${fr['1']?.toFixed(2) ?? 'null'}%`);
   }
 
   // Commit as the cold-start seed (Audit.list reads SEED before LIVE).

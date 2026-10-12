@@ -8,6 +8,8 @@ import { DEFAULT_CONVICTION_BAR, DEFAULT_HORIZON_DAYS } from '../../core/types';
 import { applyBar, flipPoint, realizedOutcome } from '../../core/regate';
 import { VerdictSeal } from './verdict-seal';
 import { verdictChip, toPct, sealVerdict, dissentRole } from './seal-data';
+import { exploratoryState } from '../../core/preregistration';
+import { ExploratoryBadge } from './exploratory-badge';
 
 const HORIZONS = [1, 3, 5, 10] as const;
 type Horizon = (typeof HORIZONS)[number];
@@ -15,6 +17,9 @@ type Horizon = (typeof HORIZONS)[number];
 export function TuneGate({ record }: { record: DecisionRecord }) {
   const [bar, setBar] = useState(DEFAULT_CONVICTION_BAR);
   const [horizon, setHorizon] = useState<Horizon>(DEFAULT_HORIZON_DAYS as Horizon);
+
+  // Pre-registration honesty gate (spec §5.1)
+  const expl = exploratoryState(bar, horizon);
 
   // Pure re-gate — instant, no spinner
   const g = applyBar(record.verdict.judgeRaw, bar);
@@ -63,7 +68,8 @@ export function TuneGate({ record }: { record: DecisionRecord }) {
           the debate itself doesn&apos;t change — this is arithmetic on one stored ruling.
         </p>
 
-        {/* TASK 9: exploratory lock insertion point → {expl.locked && <ExploratoryBadge />} */}
+        {/* Pre-registration EXPLORATORY render-gate (spec §5.1) */}
+        {expl.locked && <ExploratoryBadge />}
 
         <div
           style={{
@@ -111,6 +117,19 @@ export function TuneGate({ record }: { record: DecisionRecord }) {
                   style={{ '--fill-pct': `${fillPct}%` } as React.CSSProperties}
                   aria-label={`conviction bar: ${barPct}`}
                 />
+                {/* Default (pre-registered) notch at bar 60 — visually distinct from flip-point */}
+                <div
+                  className="flip-marker"
+                  style={{
+                    left: '60%',
+                    background: 'var(--ink-dim)',
+                    opacity: expl.locked ? 0.9 : 0.35,
+                    height: 10,
+                    width: 2,
+                  }}
+                  title="pre-registered point: bar 60"
+                  aria-hidden="true"
+                />
                 {/* Flip-point notch — absolute over the slider track */}
                 {fpPct !== null && (
                   <div
@@ -156,22 +175,24 @@ export function TuneGate({ record }: { record: DecisionRecord }) {
               </div>
             </div>
 
-            {/* Outcome readout */}
+            {/* Outcome readout — greyed when exploratory (spec §5.1 honesty gate) */}
             <div
               className="card"
               style={{
                 background: 'var(--s2)',
                 padding: 'var(--s-3) var(--s-4)',
                 fontSize: 13,
+                opacity: expl.locked ? 0.45 : 1,
+                transition: 'opacity 0.15s',
               }}
             >
               <span className="mono" style={{ color: r === null ? 'var(--ink-faint)' : 'var(--ink-dim)' }}>
-                {outcomeText}
+                {expl.showVerdictString ? outcomeText : '— exploratory; move to bar 60 / 3d for the tested claim'}
               </span>
             </div>
 
-            {/* Re-gated size/stop readout */}
-            <div style={{ display: 'flex', gap: 'var(--s-4)' }}>
+            {/* Re-gated size/stop readout — greyed when exploratory */}
+            <div style={{ display: 'flex', gap: 'var(--s-4)', opacity: expl.locked ? 0.45 : 1, transition: 'opacity 0.15s' }}>
               <div>
                 <div className="faint mono" style={{ fontSize: 11 }}>
                   size

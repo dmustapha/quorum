@@ -35,6 +35,28 @@ export function RunBox({ events }: { events: CatalystEvent[] }) {
         </span>
       </div>
 
+      {/* Active run streams HERE — immediately visible, above the catalog (not buried below it). */}
+      {selected && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--s-3)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 'var(--s-3)' }}>
+            <span className="eyebrow">
+              Running · {shortSym(selected.symbol)} · {selected.eventType} · {selected.date}
+            </span>
+            <button
+              onClick={() => setSelected(null)}
+              className="btn btn-ghost"
+              style={{ fontSize: 'var(--t-small)' }}
+            >
+              Clear
+            </button>
+          </div>
+          <DebateStream key={`${selected.symbol}-${selected.date}`} event={selected} />
+        </div>
+      )}
+
+      <span className="eyebrow" style={{ marginTop: selected ? 'var(--s-3)' : 0 }}>
+        {selected ? 'Run another catalyst' : 'Scheduled catalysts'}
+      </span>
       <div
         style={{
           display: 'grid',
@@ -73,8 +95,6 @@ export function RunBox({ events }: { events: CatalystEvent[] }) {
           );
         })}
       </div>
-
-      {selected && <DebateStream key={`${selected.symbol}-${selected.date}`} event={selected} />}
     </div>
   );
 }

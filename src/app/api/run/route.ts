@@ -13,7 +13,15 @@ export async function POST(req: NextRequest) {
   if (!process.env.LLM_API_KEY) {
     return new Response(JSON.stringify({ error: 'LLM_API_KEY not set' }), { status: 503 });
   }
-  const event = (await req.json()) as CatalystEvent;
+  let event: CatalystEvent;
+  try {
+    event = (await req.json()) as CatalystEvent;
+  } catch {
+    return new Response(JSON.stringify({ error: 'Invalid JSON body' }), { status: 400 });
+  }
+  if (!event || !event.symbol || !event.eventType || !event.date) {
+    return new Response(JSON.stringify({ error: 'Missing catalyst fields (symbol, eventType, date)' }), { status: 400 });
+  }
   const encoder = new TextEncoder();
   // Explicit disconnect→abort: cancel() fires when the client closes the connection.
   const ac = new AbortController();

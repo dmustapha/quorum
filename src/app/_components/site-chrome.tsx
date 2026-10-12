@@ -12,9 +12,11 @@ import type { SealProps } from './seal-data';
 
 const NAV = [
   { href: '/app', label: 'Console' },
+  { href: '/browse', label: 'Browse' },
   { href: '/app/decision', label: 'Decision' },
   { href: '/backtest', label: 'Backtest' },
   { href: '/proof', label: 'Proof' },
+  { href: '/scoreboard', label: 'Scoreboard' },
   { href: '/demo', label: 'Run a panel' },
 ];
 

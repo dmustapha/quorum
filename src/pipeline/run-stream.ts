@@ -84,7 +84,7 @@ export async function* runCatalystStream(
 
     // 5. Persist via the REAL Audit.append signature (it builds id/ts/evidenceHash + returns the record).
     //    Live run → forwardReturns omitted (backfilled only for the seed corpus, Task 7).
-    const record = await new Audit().append(packet, transcript, verdict, orderResult);
+    const record = await new Audit().append(packet, transcript, verdict, orderResult, false);
     yield { type: 'done', record };
   } catch (e) {
     // Honest failure — NO order, NO fabricated record past this point.

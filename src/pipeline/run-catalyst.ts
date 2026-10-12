@@ -35,5 +35,5 @@ export async function runCatalyst(event: CatalystEvent): Promise<DecisionRecord>
     convictionBar: DEFAULT_CONVICTION_BAR,
   };
   const orderResult = await new Executor(new AgentHub()).execute(verdict);
-  return new Audit().append(packet, transcript, verdict, orderResult);
+  return new Audit().append(packet, transcript, verdict, orderResult, false);
 }

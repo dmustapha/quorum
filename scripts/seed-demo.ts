@@ -57,7 +57,7 @@ async function main() {
       convictionBar: DEFAULT_CONVICTION_BAR,
     };
     const orderResult = await executor.execute(gated); // dry-run → honest rejected/skipped
-    const rec = await audit.append(packet, transcript, gated, orderResult);
+    const rec = await audit.append(packet, transcript, gated, orderResult, false);
     const fr: Record<string, number | null> = {};
     for (const h of [1, 3, 5, 10]) fr[String(h)] = await forwardReturn(market, ev.symbol, ev.date, h);
     rec.forwardReturns = fr;

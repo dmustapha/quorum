@@ -11,6 +11,7 @@ import type { CatalystEvent } from '../../core/types';
 import { VerdictSeal } from '../_components/verdict-seal';
 import { Field } from '../_components/field';
 import { DecisionDocket } from '../_components/decision-docket';
+import { RunBox } from '../_components/run-box';
 import {
   sealFromRecord,
   verdictChip,
@@ -73,34 +74,23 @@ export default async function Console() {
               })}
             </div>
           </div>
-          <span className="eyebrow">Scheduled catalysts</span>
+          <span className="eyebrow">The path</span>
           <div className="card" style={{ padding: 'var(--s-3)', marginTop: 'var(--s-3)' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--s-3)' }}>
-              {events.slice(0, 8).map((ev, i) => (
-                <div
-                  key={`${ev.symbol}-${ev.date}-${i}`}
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 3,
-                    borderLeft: '2px solid var(--border-strong)',
-                    paddingLeft: 'var(--s-3)',
-                  }}
-                >
-                  <span className="mono" style={{ fontSize: 12, color: 'var(--ink)' }}>
-                    {shortSym(ev.symbol)} · {ev.eventType}
-                  </span>
-                  <span className="faint mono" style={{ fontSize: 11 }}>
-                    as-of cutoff {ev.date}
-                  </span>
-                </div>
-              ))}
-            </div>
+            <ol className="dim" style={{ margin: 0, paddingLeft: 'var(--s-4)', fontSize: 12, lineHeight: 1.9 }}>
+              <li>Run a catalyst live</li>
+              <li>Watch the debate + the case against</li>
+              <li>Tune the gate on the ruling</li>
+              <li><Link href="/browse" style={{ color: 'var(--ink-dim)' }}>Browse</Link> + compare decisions</li>
+              <li><Link href="/scoreboard" style={{ color: 'var(--ink-dim)' }}>Scoreboard</Link> — calibration</li>
+            </ol>
           </div>
         </aside>
 
         {/* RIGHT */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--s-6)' }}>
+          {/* OPERATE · run the live panel inline */}
+          <RunBox events={events} />
+
           {/* DECISION LOG */}
           <div data-reveal>
             <div
@@ -132,7 +122,7 @@ export default async function Console() {
               <DecisionDocket records={ordered} />
             ) : (
               <div className="card" style={{ marginTop: 'var(--s-4)' }}>
-                <p style={{ margin: 0 }}>No decisions yet - run a panel from the demo.</p>
+                <p style={{ margin: 0 }}>No decisions yet — run a catalyst above to enter the first.</p>
               </div>
             )}
           </div>

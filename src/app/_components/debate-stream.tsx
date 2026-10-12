@@ -4,6 +4,7 @@
 // The ~20-90s live latency IS the show — each stage reveals as it lands.
 
 import { useEffect, useReducer, useRef } from 'react';
+import Link from 'next/link';
 import type { CatalystEvent, StreamEvent, Role } from '../../core/types';
 import { reduceStream, initialStreamState } from './stream-reducer';
 import { AdvocateCard } from './advocate-card';
@@ -137,6 +138,18 @@ export function DebateStream({ event }: { event: CatalystEvent }) {
             </p>
             <p style={{ margin: 'var(--s-2) 0 0' }}>"{verdict.minorityOpinion}"</p>
           </div>
+        </div>
+      )}
+
+      {/* Completed run → thread onward to the full audit + tune-the-gate */}
+      {phase === 'done' && record && (
+        <div data-reveal style={{ display: 'flex', gap: 'var(--s-3)', flexWrap: 'wrap' }}>
+          <Link className="btn btn-primary" href={`/app/decision/${record.id}`}>
+            Open full audit · tune the gate →
+          </Link>
+          <Link className="btn btn-ghost" href="/scoreboard">
+            See the scoreboard
+          </Link>
         </div>
       )}
 

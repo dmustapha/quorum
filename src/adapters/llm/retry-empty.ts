@@ -12,10 +12,11 @@ export async function completeNonEmpty(
   attempts: number = RETRY_ON_EMPTY,
 ): Promise<CompleteResult> {
   let last: CompleteResult | undefined;
-  for (let i = 0; i < Math.max(1, attempts); i++) {
+  const n = Math.max(1, attempts);
+  for (let i = 0; i < n; i++) {
     const r = await llm.complete(messages, opts);   // transport errors throw here, as before
     if (r.text.trim() !== '') return r;
     last = r;
   }
-  throw new Error(`EMPTY_AFTER_RETRIES: ${attempts} attempts returned empty (last usage=${JSON.stringify(last?.usage)})`);
+  throw new Error(`EMPTY_AFTER_RETRIES: ${n} attempts returned empty (last usage=${JSON.stringify(last?.usage)})`);
 }

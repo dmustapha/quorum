@@ -31,4 +31,13 @@ describe('completeNonEmpty', () => {
   it('defaults to RETRY_ON_EMPTY attempts', () => {
     expect(RETRY_ON_EMPTY).toBe(3);
   });
+
+  it('propagates a thrown error (abort/transport) without retrying it as empty', async () => {
+    const f = vi.fn(async () => { throw new DOMException('aborted', 'AbortError'); });
+    vi.stubGlobal('fetch', f);
+    await expect(
+      completeNonEmpty(new LLMClient(), [{ role: 'user', content: 'x' }], { noCache: true }, 3),
+    ).rejects.toThrow();
+    expect(f).toHaveBeenCalledTimes(1); // fetch was called once, error thrown immediately
+  });
 });

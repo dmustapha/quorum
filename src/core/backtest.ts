@@ -54,6 +54,7 @@ export async function ablationDecision(llm: LLMClient, packet: EvidencePacket): 
   return {
     decision: { action, symbol: packet.symbol, sizePct: Number(v.sizePct ?? 0), stopPct: Number(v.stopPct ?? 0), conviction: Number(v.conviction ?? 0) },
     rationale: String(v.rationale ?? ''), minorityOpinion: String(v.minorityOpinion ?? 'n/a'), convictionBar: 0,
+    judgeRaw: { action, conviction: Number(v.conviction ?? 0), sizePctRaw: Number(v.sizePct ?? 0), stopPctRaw: Number(v.stopPct ?? 0), rationale: String(v.rationale ?? ''), caseAgainst: String(v.minorityOpinion ?? 'n/a') },
   };
 }
 

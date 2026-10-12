@@ -91,6 +91,14 @@ export class Judge {
         rationale: v.rationale,
         minorityOpinion: v.minorityOpinion,
         convictionBar: this.convictionBar,
+        judgeRaw: {
+          action: v.action,            // raw, pre-bar
+          conviction: v.conviction,
+          sizePctRaw: v.sizePct,       // UNCLAMPED — the whole point of the slider
+          stopPctRaw: v.stopPct,
+          rationale: v.rationale,
+          caseAgainst: v.minorityOpinion,
+        },
       };
     }
 

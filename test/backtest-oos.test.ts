@@ -11,6 +11,7 @@ const DAY = 86_400_000;
 const verdict = (action: 'LONG' | 'SHORT' | 'NO_TRADE', sizePct = 10, conviction = 0.9): JudgeVerdict => ({
   decision: { action, symbol: 'X', sizePct: action === 'NO_TRADE' ? 0 : sizePct, stopPct: 5, conviction },
   rationale: 'synthetic', minorityOpinion: 'synthetic dissent', convictionBar: 0.6,
+  judgeRaw: { action, conviction, sizePctRaw: sizePct, stopPctRaw: 5, rationale: 'synthetic', caseAgainst: 'synthetic dissent' },
 });
 
 // 40 daily candles ending the day before `cutoff`, all close=100 (pre-cutoff, visible).

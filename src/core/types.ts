@@ -50,11 +50,21 @@ export interface TradeDecision {
   conviction: number;    // 0..1
 }
 
+export interface JudgeRaw {
+  action: Action;        // raw model action, pre-bar
+  conviction: number;    // 0..1
+  sizePctRaw: number;    // UNCLAMPED pre-gate size (model's own number, not zeroed on NO_TRADE)
+  stopPctRaw: number;    // UNCLAMPED pre-gate stop
+  rationale: string;
+  caseAgainst: string;   // the strongest losing argument, preserved (plain-language name for minorityOpinion)
+}
+
 export interface JudgeVerdict {
   decision: TradeDecision;
   rationale: string;
   minorityOpinion: string;   // ALWAYS non-empty — preserved dissent
   convictionBar: number;
+  judgeRaw: JudgeRaw;        // NEW: unclamped pre-bar assessment (powers tune-the-gate §5.1)
 }
 
 export type OrderResult =
@@ -73,6 +83,7 @@ export interface DecisionRecord {
   verdict: JudgeVerdict;
   orderResult: OrderResult;
   evidenceHash: string;  // sha256(packet)
+  forwardReturns?: Record<string, number | null>;  // NEW: realized fwd return % by horizon-days (Task 7)
 }
 
 export interface ArmMetrics {
@@ -96,3 +107,13 @@ export interface BacktestResult {
 export const MAX_SIZE_PCT = 10;        // position cap (% of notional)
 export const DEFAULT_CONVICTION_BAR = 0.6;   // pre-registered
 export const DEFAULT_HORIZON_DAYS = 3;       // pre-registered forward-return window
+
+export type StreamEvent =
+  | { type: 'evidence_ready'; packet: EvidencePacket }
+  | { type: 'bull_done'; arg: Argument }
+  | { type: 'bear_done'; arg: Argument }
+  | { type: 'risk_done'; arg: Argument }
+  | { type: 'judge_ruling'; verdict: JudgeVerdict }
+  | { type: 'order_placed'; orderResult: OrderResult }
+  | { type: 'done'; record: DecisionRecord }
+  | { type: 'error'; stage: string; message: string };

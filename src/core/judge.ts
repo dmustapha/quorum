@@ -11,6 +11,7 @@ import { z } from 'zod';
 import type { DebateTranscript, JudgeVerdict } from './types';
 import { DEFAULT_CONVICTION_BAR, MAX_SIZE_PCT } from './types';
 import { LLMClient, type LLMMessage } from '../adapters/llm/client';
+import { completeNonEmpty } from '../adapters/llm/retry-empty';
 
 const VerdictSchema = z.object({
   action: z.enum(['LONG', 'SHORT', 'NO_TRADE']),
@@ -46,7 +47,7 @@ export class Judge {
     private readonly convictionBar = DEFAULT_CONVICTION_BAR,
   ) {}
 
-  async judge(transcript: DebateTranscript): Promise<JudgeVerdict> {
+  async judge(transcript: DebateTranscript, opts: { signal?: AbortSignal; noCache?: boolean } = {}): Promise<JudgeVerdict> {
     const messages: LLMMessage[] = [
       { role: 'system', content: SYSTEM(this.convictionBar) },
       { role: 'user', content: JSON.stringify(transcript.arguments) },
@@ -54,7 +55,7 @@ export class Judge {
 
     let lastIssue = 'no attempt made';
     for (let attempt = 0; attempt < 2; attempt++) {
-      const { text } = await this.llm.complete(messages, { model: this.llm.strong(), json: true });
+      const { text } = await completeNonEmpty(this.llm, messages, { model: this.llm.strong(), json: true, signal: opts.signal, noCache: opts.noCache });
 
       let raw: unknown;
       try {
@@ -91,6 +92,14 @@ export class Judge {
         rationale: v.rationale,
         minorityOpinion: v.minorityOpinion,
         convictionBar: this.convictionBar,
+        judgeRaw: {
+          action: v.action,            // raw, pre-bar
+          conviction: v.conviction,
+          sizePctRaw: v.sizePct,       // UNCLAMPED — the whole point of the slider
+          stopPctRaw: v.stopPct,
+          rationale: v.rationale,
+          caseAgainst: v.minorityOpinion,
+        },
       };
     }
 

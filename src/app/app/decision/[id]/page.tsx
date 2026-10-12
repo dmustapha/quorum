@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Audit } from '../../../../core/audit';
 import { VerdictSeal } from '../../../_components/verdict-seal';
 import { Field } from '../../../_components/field';
+import { TuneGate } from '../../../_components/tune-gate';
 import {
   sealFromRecord,
   verdictChip,
@@ -240,6 +241,9 @@ export default async function Decision({ params }: { params: Promise<{ id: strin
             </p>
           </div>
         </div>
+
+        {/* tune the gate — §5.1 conviction threshold explorer */}
+        <TuneGate record={r} />
 
         {/* raw honesty */}
         <div data-reveal>

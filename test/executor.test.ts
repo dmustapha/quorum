@@ -22,10 +22,14 @@ class FakeMarket {
 const asHub = (h: SpyHub) => h as unknown as AgentHub;
 const asMarket = (m: FakeMarket) => m as unknown as MarketClient;
 
-const verdict = (over: Partial<JudgeVerdict['decision']>, bar = 0.6): JudgeVerdict => ({
-  decision: { action: 'LONG', symbol: 'RNVDAUSDT', sizePct: 5, stopPct: 10, conviction: 0.8, ...over },
-  rationale: 'r', minorityOpinion: 'm', convictionBar: bar,
-});
+const verdict = (over: Partial<JudgeVerdict['decision']>, bar = 0.6): JudgeVerdict => {
+  const dec = { action: 'LONG' as const, symbol: 'RNVDAUSDT', sizePct: 5, stopPct: 10, conviction: 0.8, ...over };
+  return {
+    decision: dec,
+    rationale: 'r', minorityOpinion: 'm', convictionBar: bar,
+    judgeRaw: { action: dec.action, conviction: dec.conviction, sizePctRaw: dec.sizePct, stopPctRaw: dec.stopPct, rationale: 'r', caseAgainst: 'm' },
+  };
+};
 
 describe('Executor', () => {
   // EDGE: NO_TRADE never touches the hub.

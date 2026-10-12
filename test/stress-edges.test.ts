@@ -37,10 +37,14 @@ const transcript: DebateTranscript = {
     { role: 'risk', thesis: 'cap at 5%', evidenceRefs: ['atr14'], confidence: 0.5 },
   ], rounds: 1,
 };
-const verdict = (over: Partial<JudgeVerdict['decision']>, bar = 0.6): JudgeVerdict => ({
-  decision: { action: 'LONG', symbol: 'RNVDAUSDT', sizePct: 5, stopPct: 10, conviction: 0.8, ...over },
-  rationale: 'r', minorityOpinion: 'm', convictionBar: bar,
-});
+const verdict = (over: Partial<JudgeVerdict['decision']>, bar = 0.6): JudgeVerdict => {
+  const dec = { action: 'LONG' as const, symbol: 'RNVDAUSDT', sizePct: 5, stopPct: 10, conviction: 0.8, ...over };
+  return {
+    decision: dec,
+    rationale: 'r', minorityOpinion: 'm', convictionBar: bar,
+    judgeRaw: { action: dec.action, conviction: dec.conviction, sizePctRaw: dec.sizePct, stopPctRaw: dec.stopPct, rationale: 'r', caseAgainst: 'm' },
+  };
+};
 
 describe('DH-3 · AI-agent failure modes', () => {
   // malformed/unparseable LLM output → NAMED error after 2 attempts, never a crash or fabricated verdict.

@@ -4,6 +4,7 @@
 
 import type { Argument, DebateTranscript, EvidencePacket, Role } from './types';
 import { LLMClient, type LLMMessage } from '../adapters/llm/client';
+import { completeNonEmpty } from '../adapters/llm/retry-empty';
 
 // Research/backtest-study framing: an academic equity-research panel reviewing a HISTORICAL
 // catalyst. Keeps genuine role opposition (the mechanism) while reading as analysis, not trading
@@ -22,12 +23,12 @@ export function packetToPrompt(p: EvidencePacket): string {
   ].join('\n');
 }
 
-async function argue(llm: LLMClient, role: Role, packet: EvidencePacket): Promise<Argument> {
+export async function argue(llm: LLMClient, role: Role, packet: EvidencePacket, opts: { signal?: AbortSignal; noCache?: boolean } = {}): Promise<Argument> {
   const messages: LLMMessage[] = [
     { role: 'system', content: SYSTEM[role] },
     { role: 'user', content: packetToPrompt(packet) },
   ];
-  const { text } = await llm.complete(messages, { model: llm.cheap(), json: true });
+  const { text } = await completeNonEmpty(llm, messages, { model: llm.cheap(), json: true, signal: opts.signal, noCache: opts.noCache });
   const parsed = JSON.parse(text) as Partial<Omit<Argument, 'role'>>;
   return {
     role,
@@ -42,7 +43,7 @@ export class Panel {
 
   async debate(packet: EvidencePacket): Promise<DebateTranscript> {
     const roles: Role[] = ['bull', 'bear', 'risk'];
-    const args = await Promise.all(roles.map((r) => argue(this.llm, r, packet)));
+    const args = await Promise.all(roles.map((r) => argue(this.llm, r, packet, {})));
     return { packet, arguments: args, rounds: 1 };
   }
 }

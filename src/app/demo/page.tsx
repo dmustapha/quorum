@@ -69,7 +69,7 @@ export default function Demo() {
           </p>
         </div>
 
-        {selected && <DebateStream event={selected} />}
+        {selected && <DebateStream key={`${selected.symbol}-${selected.date}`} event={selected} />}
       </div>
     </section>
   );

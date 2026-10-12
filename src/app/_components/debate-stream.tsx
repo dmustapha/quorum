@@ -3,7 +3,7 @@
 // Consumes the SSE stream from POST /api/run and renders debate stages progressively.
 // The ~20-90s live latency IS the show — each stage reveals as it lands.
 
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import type { CatalystEvent, StreamEvent, Role } from '../../core/types';
 import { reduceStream, initialStreamState } from './stream-reducer';
 import { AdvocateCard } from './advocate-card';
@@ -13,6 +13,7 @@ const ROLES: Role[] = ['bull', 'bear', 'risk'];
 
 export function DebateStream({ event }: { event: CatalystEvent }) {
   const [state, dispatch] = useReducer(reduceStream, undefined, initialStreamState);
+  const readerRef = useRef<ReadableStreamDefaultReader<Uint8Array> | null>(null);
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -32,6 +33,7 @@ export function DebateStream({ event }: { event: CatalystEvent }) {
         }
 
         const reader = res.body.getReader();
+        readerRef.current = reader;
         const decoder = new TextDecoder();
         let buffer = '';
 
@@ -60,10 +62,21 @@ export function DebateStream({ event }: { event: CatalystEvent }) {
       } catch (err: unknown) {
         if ((err as { name?: string })?.name === 'AbortError') return;
         dispatch({ type: 'error', stage: 'stream', message: String(err) });
+      } finally {
+        if (readerRef.current) {
+          readerRef.current.cancel().catch(() => {});
+          readerRef.current = null;
+        }
       }
     })();
 
-    return () => ctrl.abort();
+    return () => {
+      ctrl.abort();
+      if (readerRef.current) {
+        readerRef.current.cancel().catch(() => {});
+        readerRef.current = null;
+      }
+    };
   }, [event]);
 
   const { phase, packet, args, verdict, record } = state;

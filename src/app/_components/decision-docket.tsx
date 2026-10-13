@@ -30,7 +30,7 @@ export function DecisionDocket({ records }: { records: DecisionRecord[] }) {
             <th>Seal</th>
             <th>Verdict</th>
             <th>Conviction</th>
-            <th>Dissent</th>
+            <th>Case against</th>
             <th>Order</th>
           </tr>
         </thead>

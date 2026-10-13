@@ -114,8 +114,8 @@ export default async function Console() {
                 </div>
               </div>
               <span className="faint mono" style={{ fontSize: 12 }}>
-                pre-registered bar <strong style={{ color: 'var(--ink-dim)' }}>60</strong> · dissent
-                on every row
+                pre-registered bar <strong style={{ color: 'var(--ink-dim)' }}>60</strong> · the
+                case against on every row
               </span>
             </div>
             {ordered.length ? (

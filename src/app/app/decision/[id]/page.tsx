@@ -121,10 +121,10 @@ export default async function Decision({ params }: { params: Promise<{ id: strin
 
           <div className="card" style={{ borderColor: 'var(--azure-24)', display: 'flex', flexDirection: 'column' }}>
             <span className="eyebrow" style={{ color: 'var(--azure)' }}>
-              Minority opinion · preserved, equal standing
+              The case against · preserved, equal standing
             </span>
             <span className={`v ${ROLE_META[dis.toLowerCase()].cls}`} style={{ marginTop: 'var(--s-4)' }}>
-              {dis} · preserved dissent
+              {dis} · the case against
             </span>
             <p style={{ margin: 'var(--s-3) 0 0' }}>“{r.verdict.minorityOpinion}”</p>
             <p className="faint" style={{ marginTop: 'auto', paddingTop: 'var(--s-4)', fontSize: 13 }}>

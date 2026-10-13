@@ -8,9 +8,9 @@ import { SiteNav, SiteFooter, ScrollIndicator, Reveals } from './_components/sit
 export const runtime = 'nodejs';
 
 export const metadata: Metadata = {
-  title: 'Quorum — four AIs argue each trade; a Judge rules and keeps the dissent',
+  title: 'Quorum — four AIs argue each trade; a Judge rules and keeps the case against',
   description:
-    'Adversarial Bull/Bear/Risk LLM debate -> Judge verdict with preserved dissent -> paper order on Bitget Demo.',
+    'Adversarial Bull/Bear/Risk LLM debate -> Judge verdict that preserves the case against -> paper order on Bitget Demo.',
 };
 
 // Anti-FOUC: restore the saved theme + mark the document js-enabled before paint.
@@ -28,7 +28,7 @@ async function navSeal(): Promise<SealProps> {
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const seal = await navSeal();
   return (
-    <html lang="en" data-theme="dark">
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: BOOT }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />

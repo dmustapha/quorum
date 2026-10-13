@@ -73,7 +73,7 @@ export default async function Landing() {
               <br />
               <span style={{ color: 'var(--accent)' }}>A Judge rules</span>
               <br />
-              <span className="recess">and keeps the dissent.</span>
+              <span className="recess">and keeps the case against.</span>
             </h1>
             <p className="lede" data-reveal>
               A Bull, a Bear, and a Risk analyst argue every scheduled catalyst from opposing
@@ -111,7 +111,7 @@ export default async function Landing() {
                   100%
                 </div>
                 <div className="faint mono" style={{ fontSize: 12 }}>
-                  dissent preserved
+                  case against preserved
                 </div>
               </div>
             </div>
@@ -142,7 +142,7 @@ export default async function Landing() {
                   size={300}
                   label
                   animate
-                  ariaLabel={`Verdict Seal: ${heroSym} ${hero.packet.eventType} - conviction ${heroConv} over the bar of ${heroBar}, verdict ${heroChip.label}, ${heroDissent} dissent preserved`}
+                  ariaLabel={`Verdict Seal: ${heroSym} ${hero.packet.eventType} - conviction ${heroConv} over the bar of ${heroBar}, verdict ${heroChip.label}, ${heroDissent} — the case against preserved`}
                 />
                 <div style={{ display: 'flex', gap: 'var(--s-3)', alignItems: 'center' }}>
                   <span className={`v ${heroChip.cls}`}>{heroChip.label}</span>
@@ -152,7 +152,7 @@ export default async function Landing() {
                   </span>
                 </div>
                 <div className="mono faint" style={{ fontSize: 11 }}>
-                  dissent ({heroDissent}) retained · ev {heroHash}
+                  case against ({heroDissent}) retained · ev {heroHash}
                 </div>
               </div>
             ) : (
@@ -232,7 +232,7 @@ export default async function Landing() {
           </div>
           <div data-reveal>
             <span className="eyebrow" style={{ color: 'var(--azure)' }}>
-              Minority opinion · never erased
+              The case against · never erased
             </span>
             <h2 style={{ fontSize: 'var(--t-h1)', margin: 'var(--s-3) 0 var(--s-5)' }}>
               The losing argument is kept with equal standing.
@@ -240,7 +240,7 @@ export default async function Landing() {
             {hero && (
               <div className="card" style={{ borderColor: 'var(--azure-24)' }}>
                 <span className={`v ${ROLE_META[heroDissent.toLowerCase()].cls}`}>
-                  {heroDissent} · preserved dissent
+                  {heroDissent} · the case against
                 </span>
                 <p style={{ margin: 'var(--s-3) 0 0' }}>“{hero.verdict.minorityOpinion}”</p>
                 <p className="faint" style={{ marginTop: 'var(--s-4)', fontSize: 13 }}>

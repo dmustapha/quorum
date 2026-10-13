@@ -109,7 +109,7 @@ export function SiteFooter({ seal }: { seal: SealProps }) {
           <VerdictSeal {...seal} size={18} /> Quorum
         </span>
         <span className="faint mono" style={{ fontSize: 12 }}>
-          Paper orders on Bitget Demo · real API, no real money · dissent never erased
+          Paper orders on Bitget Demo · real API, no real money · the case against, never erased
         </span>
       </div>
     </footer>

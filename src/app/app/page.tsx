@@ -190,7 +190,7 @@ export default async function Console() {
                 </Link>
               </div>
               <p className="faint mono" style={{ fontSize: 12, marginTop: 'var(--s-3)' }}>
-                Dissent ({dissentRole(latest)}) retained · {latest.transcript.rounds} round.
+                Case against ({dissentRole(latest)}) retained · {latest.transcript.rounds} round.
               </p>
             </div>
           )}

@@ -61,7 +61,7 @@ export default async function Proof() {
       shown: bt ? `${bt.ablation.oos.avgPnlPct.toFixed(2)}%` : '—',
       hash: 'backtest:ablation.oos',
     },
-    { label: 'Dissents preserved', shown: `${dissentKept} / ${records.length}`, hash: 'minorityOpinion' },
+    { label: 'Case-against preserved', shown: `${dissentKept} / ${records.length}`, hash: 'minorityOpinion' },
   ];
 
   const orderProof = records.map((r) => ({

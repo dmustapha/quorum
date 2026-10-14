@@ -1,0 +1,33 @@
+{
+  "working_dir": "/Users/MAC/bitget-hack/quorum",
+  "current_step": "complete",
+  "steps_complete": ["setup", "platform_detection", "extract_copy", "sponsor_tracks", "link_verification", "team_info", "media_collection", "final_verification"],
+  "platform": "custom (re-show / portfolio - no open submission; Bitget AI deadline 2026-10-11 passed)",
+  "mode": "re-show",
+  "links_verified": 4,
+  "links_total": 4,
+  "deadline": { "status": "PASSED", "extensionWaived": false, "note": "spec §14 post-submission re-show track" },
+  "proofSurface": {
+    "kind": "command",
+    "tier": "recompute",
+    "recomputes": "the leak-safe gate, calibration null-not-zero rule, significance gate, and pre-registration guard all re-derive green",
+    "verifyCommand": "npm install && npm test",
+    "readmeAnchor": "## Verify in 60s",
+    "committedArtifact": "submission/proof.md"
+  },
+  "sponsorTracks": {
+    "bitget_agent_hub": "verified (@bitget-ai/bitget-agent-sdk 3.3.1 in src/adapters/bitget/agenthub.ts)",
+    "bitget_market_api": "verified (api.bitget.com v2 spot in src/adapters/bitget/market.ts)",
+    "0g_compute": "verified (router-api.0g.ai deepseek-v4-pro in src/adapters/llm/client.ts)"
+  },
+  "missing_artifacts": ["demo-video (deferred this pass per owner)"],
+  "blockers": [],
+  "warnings": [
+    "deadline passed - re-show/portfolio package, not a closed-form submission",
+    "WP-2 test ratio 24/54 (0.44) - UI verified by build + live-smoke per repo convention",
+    "no config.json/PRD.md/.conductor-state.json - inline rebuild, artifacts sourced from spec + code + live URL",
+    "submission-platform-form, outreach drafts, and terminal-submit gate skipped (no open submission)"
+  ],
+  "autonomous_mode": false,
+  "context_percentage": 40
+}

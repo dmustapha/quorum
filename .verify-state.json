@@ -1,0 +1,52 @@
+{
+  "status": "complete",
+  "mode": "preflight",
+  "autonomous_mode": false,
+  "runDate": "2026-10-14",
+  "winnerReadiness": 65,
+  "maxScore": 73,
+  "overallStatus": "RE-SHOW READY (submission capped: DO NOT SUBMIT — deadline passed)",
+  "recommendation": "Re-show ready for Demo Day / People's Choice / portfolio. Not submittable to the closed Oct-11 form without a confirmed extension.",
+  "blocked_reason": null,
+  "killZones": {
+    "kz1_demo_reliability": "CLEAR",
+    "kz2_submission_completeness": "N/A",
+    "kz3_contract_wrong_network": "N/A",
+    "kz4_sponsor_integration": "CLEAR",
+    "kz5_eligibility_compliance": "N/A",
+    "kz6_claim_integrity": "N/A",
+    "kz7_infra_durability": "CLEAR"
+  },
+  "deadline": {
+    "source": "brief",
+    "deadlineUtc": "2026-10-11T00:00:00Z",
+    "checkedAt": "2026-10-14T02:42:48Z",
+    "status": "PASSED",
+    "extensionWaived": false,
+    "note": "spec §14 post-submission re-show track; frozen showcase was the on-deadline entry"
+  },
+  "freshClone": {
+    "source": "origin",
+    "buildPass": true,
+    "testPass": true,
+    "path": "clone from https://github.com/dmustapha/quorum.git @0401aa6 (104/104, typecheck+build clean)"
+  },
+  "facets": {
+    "f1_demo_reliability": { "score": 22, "max": 25, "notes": "5/5 surfaces 200 + scoreboard scored=3 each run; live 0G engine proven in prod; cold-uncached run 20-68s w/ honest fail-UX" },
+    "f2_submission_completeness": { "score": 0, "max": 0, "notes": "N/A — re-show, no open submission" },
+    "f3_sponsor_integration": { "score": 17, "max": 20, "notes": "Bitget Agent Hub (real SDK placeStrategyOrder, honest no-fill) + 0G Compute (deepseek-v4-pro, central, proven) + Bitget market data; Playbook not used" },
+    "f4_technical_correctness": { "score": 14, "max": 15, "notes": "fresh origin clone: 104/104, typecheck+build clean, prod live engine authenticates" },
+    "f5_narrative_quality": { "score": 9, "max": 10, "notes": "one-sentence pitch fills cleanly; honesty framing is the differentiator" },
+    "f6_eligibility_compliance": { "score": 0, "max": 0, "notes": "N/A — re-show" },
+    "f7_code_quality": { "score": 3, "max": 3, "notes": "README+LICENSE, no secrets, .env.local gitignored+never committed, clean build" },
+    "f8_presentation_assets": { "score": 0, "max": 0, "notes": "N/A — demo deferred this pass per user; fresh video is end-of-track per §14" }
+  },
+  "sponsors": {
+    "bitget_agent_hub": { "abcd": "ABCD pass", "notes": "@bitget-ai/bitget-agent-sdk@3.3.1, placeStrategyOrder, advisory for spot-only SHORT" },
+    "0g_compute": { "abcd": "ABCD pass", "notes": "router-api.0g.ai deepseek-v4-pro; entire debate is its live output" }
+  },
+  "applicableTotal": 65,
+  "applicableMax": 73,
+  "blockers": [],
+  "errors": []
+}
